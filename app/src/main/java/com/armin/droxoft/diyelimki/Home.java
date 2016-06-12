@@ -10,6 +10,7 @@ public class Home extends Activity {
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.home);
+
         tanimlar();
     }
 
