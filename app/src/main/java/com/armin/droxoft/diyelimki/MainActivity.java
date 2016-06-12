@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.girissayfasi);
         girisanimasyonu();
         boolean ilkgiris = sharedPrefIlkGirisAl();
-        if(ilkgiris) {
+        if(true) {
             sorularidatabaseeyukle();
         }
     }
