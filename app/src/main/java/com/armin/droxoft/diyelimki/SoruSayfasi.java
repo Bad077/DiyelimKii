@@ -20,6 +20,16 @@ public class SoruSayfasi extends Activity {
     }
 
     private void tanimlar() {
+        ImageButton homebutton = (ImageButton) findViewById(R.id.imageButton);
+        homebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SoruSayfasi.this,Home.class);
+                startActivity(i);
+                finish();
+                overridePendingTransition(R.anim.slideinleft, R.anim.slideoutright);
+            }
+        });
         final Animation ButtonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
         final Button evetButton = (Button) findViewById(R.id.bEvet);
         evetButton.setOnClickListener(new View.OnClickListener() {
@@ -36,15 +46,6 @@ public class SoruSayfasi extends Activity {
             public void onClick(View v) {
                 Log.i("tago", "bhayir");
                 hayirButton.startAnimation(ButtonAnim2);
-            }
-        });
-        ImageButton homebutton = (ImageButton) findViewById(R.id.imageButton);
-        homebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SoruSayfasi.this,Home.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.slideinleft, R.anim.slideoutright);
             }
         });
     }
