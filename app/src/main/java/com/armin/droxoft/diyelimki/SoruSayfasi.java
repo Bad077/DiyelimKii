@@ -25,7 +25,7 @@ public class SoruSayfasi extends Activity {
         evetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("button", "bevet");
+                Log.i("tago", "bevet");
                 evetButton.startAnimation(ButtonAnim);
             }
         });
@@ -34,7 +34,7 @@ public class SoruSayfasi extends Activity {
         hayirButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("button", "bhayir");
+                Log.i("tago", "bhayir");
                 hayirButton.startAnimation(ButtonAnim2);
             }
         });
