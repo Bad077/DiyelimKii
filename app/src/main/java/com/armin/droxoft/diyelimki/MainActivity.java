@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         return sharedPreferences.getString("userid" , "defaultuserid");
     }
 
-
     private void sharedPrefIlkGirisKaydet(boolean b) {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.girissayfasi);
