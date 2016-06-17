@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -116,11 +120,15 @@ public class MainActivity extends AppCompatActivity {
                 BufferedReader in;
                 if (connection.getResponseCode() == 200) {
                     in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    String userid = in.readLine();
+                    JSONArray jsonArray = new JSONArray(in.readLine());
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    String userid = jsonObject.optString("id");
                     sharedPrefUserIdKaydet(userid);
                 }
             }catch (IOException exception) {
 
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
             return "haha";
         }
