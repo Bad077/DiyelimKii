@@ -31,15 +31,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sharedPrefUserIdKaydet(String userid) {
-        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("userid" , userid);
+        editor.putString("userid", userid);
         editor.apply();
     }
 
-    private String sharedPrefUserIdAl(){
-        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
-        return sharedPreferences.getString("userid" , "defaultuserid");
+    private String sharedPrefUserIdAl() {
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("userid", "defaultuserid");
     }
 
     private void sharedPrefIlkGirisKaydet(boolean b) {
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void kullanicikaydi() {
-        if(sharedPrefUserIdAl().equals("defaultuserid")) {
+        if (sharedPrefUserIdAl().equals("defaultuserid")) {
             ServerKullaniciKaydet sKK = new ServerKullaniciKaydet();
             sKK.execute();
         }
@@ -84,17 +84,17 @@ public class MainActivity extends AppCompatActivity {
     private void sorularidatabaseeyukle() {
         //Sorulari database e yukleme islemi
         sharedPrefIlkGirisKaydet(false);
-        Intent i = new Intent(MainActivity.this, SoruSayfasi.class);
-        startActivity(i);
+        ServerSorulariCek sSC = new ServerSorulariCek();
+        sSC.execute("3");
     }
 
     private class ServerKullaniciKaydet extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
-            Log.i("tago" , "girdi");
+            Log.i("tago", "girdi");
             String charset = "UTF-8";
-            String query=null;
+            String query = null;
             String param1 = "id";
             try {
                 query = String.format("param1=%s", URLEncoder.encode(param1, charset));
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                     String userid = jsonObject.optString("id");
                     sharedPrefUserIdKaydet(userid);
                 }
-            }catch (IOException exception) {
+            } catch (IOException exception) {
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -134,4 +134,64 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private class ServerSorulariCek extends AsyncTask<String, Void, String> {
+
+
+        protected String doInBackground(String... params) {
+            Log.i("tago", "tago");
+            String charset = "UTF-8";
+            String query = null;
+            String param1 = "kategori";
+            try {
+                query = String.format("param1=%s", URLEncoder.encode(param1, charset));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/diyelimki/sorugetir.php?kategori=" + params[0]).openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 ( compatible ) ");
+            connection.setRequestProperty("Accept", "* /*");
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            try {
+                Log.i("tago", "inputline ");
+                OutputStream output = new BufferedOutputStream(connection.getOutputStream());
+                output.write(query.getBytes(charset));
+                output.close();
+                BufferedReader in;
+                if (connection.getResponseCode() == 200) {
+                    in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String inputline = in.readLine();
+                    JSONArray jsonArray = new JSONArray(inputline);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int soruid = jsonObject.optInt("id");
+                        String whatif = jsonObject.optString("whatif");
+                        String result = jsonObject.optString("result");
+                        String kategori = jsonObject.optString("kategori");
+                        int yes = jsonObject.optInt("yes");
+                        int no = jsonObject.optInt("no");
+                        String userid = jsonObject.optString("userid");
+                    }
+                }
+            } catch (IOException exception) {
+                Log.i("tago", "inputline IO");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return "haha";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Intent i = new Intent(MainActivity.this, SoruSayfasi.class);
+            startActivity(i);
+        }
+    }
 }
