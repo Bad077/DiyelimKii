@@ -166,6 +166,8 @@ public class MainActivity extends AppCompatActivity {
                 output.close();
                 BufferedReader in;
                 if (connection.getResponseCode() == 200) {
+                    DatabaseClassSorular dCS = new DatabaseClassSorular(MainActivity.this);
+                    dCS.open();
                     in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     String inputline = in.readLine();
                     JSONArray jsonArray = new JSONArray(inputline);
@@ -178,7 +180,10 @@ public class MainActivity extends AppCompatActivity {
                         int yes = jsonObject.optInt("yes");
                         int no = jsonObject.optInt("no");
                         String userid = jsonObject.optString("userid");
+                        Log.i("tago" , "bosluklu sıra " + soruid + " " + whatif + " " + result + " " + kategori + " " + yes + " " + no + " " + userid);
+                        dCS.olustur(String.valueOf(soruid),whatif,result,kategori,String.valueOf(yes),String.valueOf(no),userid);
                     }
+                    dCS.close();
                 }
             } catch (IOException exception) {
                 Log.i("tago", "inputline IO");
