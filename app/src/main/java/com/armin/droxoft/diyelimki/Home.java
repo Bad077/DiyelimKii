@@ -49,7 +49,7 @@ public class Home extends Activity {
     }
 
     private void tanimlar() {
-        Button geributonu = (Button) findViewById(R.id.button3);
+        ImageButton geributonu = (ImageButton) findViewById(R.id.button3);
         geributonu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(Home.this, SoruSayfasi.class);

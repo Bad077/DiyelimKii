@@ -31,7 +31,7 @@ public class SoruSayfasi extends Activity {
             }
         });
         final Animation ButtonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
-        final Button evetButton = (Button) findViewById(R.id.bEvet);
+        final ImageButton evetButton = (ImageButton) findViewById(R.id.bEvet);
         evetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +40,7 @@ public class SoruSayfasi extends Activity {
             }
         });
         final Animation ButtonAnim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
-        final Button hayirButton = (Button) findViewById(R.id.bHayir);
+        final ImageButton hayirButton = (ImageButton) findViewById(R.id.bHayir);
         hayirButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
