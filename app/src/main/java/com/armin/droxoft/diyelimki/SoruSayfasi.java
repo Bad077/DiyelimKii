@@ -20,7 +20,7 @@ public class SoruSayfasi extends Activity {
         super.onCreate(bundle);
         setContentView(R.layout.sorusayfasi);
         tanimlar();
-        hangisorudasin = 0;
+        hangisorudasin = 1;
         soruyugetir(hangisorudasin);
     }
 
