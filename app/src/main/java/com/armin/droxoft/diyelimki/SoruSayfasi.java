@@ -84,5 +84,41 @@ public class SoruSayfasi extends Activity {
 
             }
         });
+        StatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StatButton.startAnimation(ButtonAnim_out);
+                ShareButton.startAnimation(ButtonAnim_out_late);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LayStat.setVisibility(View.INVISIBLE);
+                        LayEvetHayir.setVisibility(View.VISIBLE);
+                        evetButton.startAnimation(ButtonAnim_in);
+                        hayirButton.startAnimation(ButtonAnim_in);
+
+                    }
+                }, 800);
+            }
+        });
+        ShareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareButton.startAnimation(ButtonAnim_out);
+                StatButton.startAnimation(ButtonAnim_out_late);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LayStat.setVisibility(View.INVISIBLE);
+                        LayEvetHayir.setVisibility(View.VISIBLE);
+                        evetButton.startAnimation(ButtonAnim_in);
+                        hayirButton.startAnimation(ButtonAnim_in);
+
+                    }
+                }, 800);
+            }
+        });
     }
 }
