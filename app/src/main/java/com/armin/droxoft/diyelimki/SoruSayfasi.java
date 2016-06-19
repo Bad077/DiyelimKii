@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 
@@ -30,22 +29,25 @@ public class SoruSayfasi extends Activity {
                 overridePendingTransition(R.anim.slideinleft, R.anim.slideoutright);
             }
         });
-        final Animation ButtonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
+        final Animation ButtonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_out);
         final ImageButton evetButton = (ImageButton) findViewById(R.id.bEvet);
+        final ImageButton hayirButton = (ImageButton) findViewById(R.id.bHayir);
         evetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("tago", "bevet");
                 evetButton.startAnimation(ButtonAnim);
+
+
+
             }
         });
-        final Animation ButtonAnim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
-        final ImageButton hayirButton = (ImageButton) findViewById(R.id.bHayir);
+
         hayirButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("tago", "bhayir");
-                hayirButton.startAnimation(ButtonAnim2);
+                hayirButton.startAnimation(ButtonAnim);
             }
         });
     }

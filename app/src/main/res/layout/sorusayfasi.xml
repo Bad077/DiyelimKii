@@ -73,6 +73,12 @@
             android:textStyle="bold"
             android:textColor="#ffffff" />
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/LayEvetHayir"
+        android:visibility="visible">
+
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -98,5 +104,33 @@
         android:background="#00000000"
         android:src="@mipmap/hayir"
         android:layout_marginBottom="5dp" />
+    </RelativeLayout>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layIstatistic"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="10dp"
+            android:visibility="invisible">
+            <ImageButton
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:id="@+id/bEvet2"
 
+
+                android:layout_marginLeft="29dp"
+                android:layout_marginStart="29dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/bHayir2"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/bEvet2"
+                android:layout_toEndOf="@+id/bEvet2"
+                android:layout_marginLeft="20dp"/>
+
+        </RelativeLayout>
 </RelativeLayout>
