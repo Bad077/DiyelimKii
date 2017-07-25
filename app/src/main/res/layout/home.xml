@@ -40,57 +40,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:id="@+id/tab1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Modes"
-                        android:textSize="30sp"
-                        android:id="@+id/textView6" />
-
-                    <ImageButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageButton2"
-                        android:background="@mipmap/ic_launcher"/>
-                    <ImageButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageButton3"
-                        android:background="@mipmap/ic_launcher"/>
-                    <ImageButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageButton4"
-                        android:background="@mipmap/ic_launcher"/>
-                    <ImageButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageButton5"
-                        android:background="@mipmap/ic_launcher"/>
-                    <ImageButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageButton6"
-                        android:background="@mipmap/ic_launcher"/>
-                    <ImageButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageButton7"
-                        android:background="@mipmap/ic_launcher"/>
-                    <ImageButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageButton8"
-                        android:background="@mipmap/ic_launcher"/>
-                </LinearLayout>
-
                 <RelativeLayout
                     android:id="@+id/tab2"
                     android:orientation="vertical"

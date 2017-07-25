@@ -7,6 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,20 +54,38 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.girissayfasi);
-        kullanicikaydi();
-        girisanimasyonu();
-        boolean ilkgiris = sharedPrefIlkGirisAl();
-        if (true) {
+        if (!sharedPrefUserIdAl().equals("defaultuserid")) {
+            //adamın ilk girisi degil ona gore hareket planı
+            setContentView(R.layout.gecissayfasi);
+            girisanimasyonu();
             sorularidatabaseeyukle();
+        } else {
+            setContentView(R.layout.girissayfasi);
+            Button girisbutonu = (Button) findViewById(R.id.buttongiris);
+            girisbutonu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EditText editTextisim = (EditText) findViewById(R.id.editText3);
+                    if (editTextisim.getText().toString().length() < 3) {
+                        //alert
+                        Log.i("tago", "kullanıcı adı en az 3 harfli olabilir");
+                    } else if (editTextisim.getText().toString().length() > 40) {
+                        //alert
+                        Log.i("tago", "kullanıcı adı en fazla 40 harfli olabilir");
+                    } else {
+                        String kullaniciadi = editTextisim.getText().toString();
+                        kullanicikaydi(kullaniciadi);
+                        sorularidatabaseeyukle();
+                    }
+
+                }
+            });
         }
     }
 
-    private void kullanicikaydi() {
-        if (sharedPrefUserIdAl().equals("defaultuserid")) {
-            ServerKullaniciKaydet sKK = new ServerKullaniciKaydet();
+    private void kullanicikaydi(String kullaniciadi) {
+            ServerKullaniciKaydet sKK = new ServerKullaniciKaydet(kullaniciadi);
             sKK.execute();
-        }
     }
 
     private void girisanimasyonu() {
@@ -82,28 +103,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sorularidatabaseeyukle() {
-        //Sorulari database e yukleme islemi
-        sharedPrefIlkGirisKaydet(false);
         ServerSorulariCek sSC = new ServerSorulariCek();
         sSC.execute("3");
     }
 
     private class ServerKullaniciKaydet extends AsyncTask<String, Void, String> {
 
-        @Override
-        protected String doInBackground(String... params) {
-            Log.i("tago", "girdi");
-            String charset = "UTF-8";
-            String query = null;
-            String param1 = "id";
+        String charset,query,kullaniciadi;
+        public ServerKullaniciKaydet(String kullaniciadi){
+            this.kullaniciadi = kullaniciadi;
+            charset = "UTF-8";
+            String param1 = "kullaniciadi";
             try {
-                query = String.format("param1=%s", URLEncoder.encode(param1, charset));
+                query = String.format("param1=%s" ,URLEncoder.encode(param1, charset));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
+        }
+        @Override
+        protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.187.60/diyelimki/add_user.php?id=188").openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/diyelimki/add_user.php?username="+kullaniciadi).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -136,34 +157,21 @@ public class MainActivity extends AppCompatActivity {
 
     private class ServerSorulariCek extends AsyncTask<String, Void, String> {
 
-
         protected String doInBackground(String... params) {
             Log.i("tago", "tago");
             String charset = "UTF-8";
-            String query = null;
-            String param1 = "kategori";
-            try {
-                query = String.format("param1=%s", URLEncoder.encode(param1, charset));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.187.60/diyelimki/sorugetir.php?kategori=" + params[0]).openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/diyelimki/sorugetir.php?").openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 ( compatible ) ");
             connection.setRequestProperty("Accept", "* /*");
             connection.setRequestProperty("Accept-Charset", charset);
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
             try {
-                Log.i("tago", "inputline ");
-                OutputStream output = new BufferedOutputStream(connection.getOutputStream());
-                output.write(query.getBytes(charset));
-                output.close();
                 BufferedReader in;
                 if (connection.getResponseCode() == 200) {
                     DatabaseClassSorular dCS = new DatabaseClassSorular(MainActivity.this);
@@ -176,12 +184,11 @@ public class MainActivity extends AppCompatActivity {
                         int soruid = jsonObject.optInt("id");
                         String whatif = jsonObject.optString("whatif");
                         String result = jsonObject.optString("result");
-                        String kategori = jsonObject.optString("kategori");
                         int yes = jsonObject.optInt("yes");
                         int no = jsonObject.optInt("no");
                         String userid = jsonObject.optString("userid");
-                        Log.i("tago" , "bosluklu sıra " + soruid + " " + whatif + " " + result + " " + kategori + " " + yes + " " + no + " " + userid);
-                        dCS.olustur(String.valueOf(soruid),whatif,result,kategori,String.valueOf(yes),String.valueOf(no),userid);
+                        Log.i("tago" , "bosluklu sıra " + soruid + " " + whatif + " " + result + " " + yes + " " + no + " " + userid);
+                        dCS.olustur(String.valueOf(soruid),whatif,result,String.valueOf(yes),String.valueOf(no),userid);
                     }
                     dCS.close();
                 }
@@ -198,5 +205,6 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(MainActivity.this, SoruSayfasi.class);
             startActivity(i);
         }
+
     }
 }

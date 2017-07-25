@@ -7,33 +7,6 @@
     android:background="@mipmap/ne_dersin">
 
     <RelativeLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:background="#00000000"
-            android:src="@mipmap/home" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton9"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:background="#00000000"
-            android:src="@mipmap/video_izle" />
-    </RelativeLayout>
-
-    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -43,13 +16,14 @@
         android:layout_marginTop="60dp">
 
         <TextView
+            android:id="@+id/textWhatif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/textView2"
             android:layout_centerInParent="true"
-            android:textStyle="bold" />
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:textColor="#000"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -60,24 +34,28 @@
         android:layout_alignLeft="@+id/relativeLayout"
         android:layout_alignStart="@+id/relativeLayout"
         android:id="@+id/relativeLayout2"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        >
 
         <TextView
+            android:id="@+id/textResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/textView4"
             android:layout_alignParentBottom="false"
             android:layout_centerInParent="true"
-            android:textStyle="bold"
-            android:textColor="#ffffff" />
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/LayEvetHayir"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
 
     <ImageButton
@@ -104,6 +82,39 @@
         android:background="#00000000"
         android:src="@mipmap/hayir"
         android:layout_marginBottom="5dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButton9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="13dp"
+                android:background="#00000000"
+                android:src="@mipmap/video_izle" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="15dp"
+                android:background="#00000000"
+                android:src="@mipmap/home" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
     <RelativeLayout
             android:layout_width="match_parent"

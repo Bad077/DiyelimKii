@@ -34,6 +34,7 @@ public class Home extends Activity {
 
     TextView textviewyesyuzdesi;
     TextView textviewuyumlulukyuzdesi;
+    String a;
 
     private String sharedPrefIdAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
@@ -59,75 +60,18 @@ public class Home extends Activity {
             }
         });
         TabHost thost = (TabHost) findViewById(R.id.tabHost);
-        TabHost.TabSpec tspec1, tspec2, tspec3;
+        TabHost.TabSpec tspec1, tspec2;
         thost.setup();
-        tspec1 = thost.newTabSpec("Kategori");
-        tspec1.setIndicator("Kategori");
-        tspec1.setContent(R.id.tab1);
+        tspec1 = thost.newTabSpec("İstatistikler");
+        tspec1.setIndicator("İstatistikler");
+        tspec1.setContent(R.id.tab3);
         thost.addTab(tspec1);
         tspec2 = thost.newTabSpec("Soru Oluştur");
         tspec2.setIndicator("Soru Oluştur");
         tspec2.setContent(R.id.tab2);
         thost.addTab(tspec2);
-        tspec3 = thost.newTabSpec("Istatistikler");
-        tspec3.setIndicator("Istatistikler");
-        tspec3.setContent(R.id.tab3);
-        thost.addTab(tspec3);
         thost.setOnTabChangedListener(new AnimatedTabHostListener(thost));
-        ImageButton kategorigenel = (ImageButton) findViewById(R.id.imageButton2);
-        kategorigenel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(Home.this, SoruSayfasi.class);
-                startActivity(i);
-                finish();
-                overridePendingTransition(R.anim.slideinright, R.anim.slideoutleft);
-            }
-        });
-        ImageButton kategoriaa = (ImageButton) findViewById(R.id.imageButton3);
-        kategorigenel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(Home.this, SoruSayfasi.class);
-                startActivity(i);
-                finish();
-                overridePendingTransition(R.anim.slideinright, R.anim.slideoutleft);
-            }
-        });
-        ImageButton kategoribb = (ImageButton) findViewById(R.id.imageButton4);
-        kategorigenel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(Home.this, SoruSayfasi.class);
-                startActivity(i);
-                finish();
-                overridePendingTransition(R.anim.slideinright, R.anim.slideoutleft);
-            }
-        });
-        ImageButton kategoricc = (ImageButton) findViewById(R.id.imageButton5);
-        kategorigenel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(Home.this, SoruSayfasi.class);
-                startActivity(i);
-                finish();
-                overridePendingTransition(R.anim.slideinright, R.anim.slideoutleft);
-            }
-        });
-        ImageButton kategoridd = (ImageButton) findViewById(R.id.imageButton6);
-        kategorigenel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(Home.this, SoruSayfasi.class);
-                startActivity(i);
-                finish();
-                overridePendingTransition(R.anim.slideinright, R.anim.slideoutleft);
-            }
-        });
-        ImageButton kategoriee = (ImageButton) findViewById(R.id.imageButton7);
-        kategorigenel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(Home.this, SoruSayfasi.class);
-                startActivity(i);
-                finish();
-                overridePendingTransition(R.anim.slideinright, R.anim.slideoutleft);
-            }
-        });
+
     }
 
     private void tanimlarSoruOlusturma() {
@@ -139,8 +83,14 @@ public class Home extends Activity {
             public void onClick(View v) {
                 if (!editTextWhatIf.getText().toString().equals("") && !editTextBut.getText().toString().equals("")) {
                     ServerSoruyuGonder sSG = new ServerSoruyuGonder(editTextWhatIf.getText().toString(),
-                            editTextBut.getText().toString(), "1", userid);
+                            editTextBut.getText().toString(), userid);
                     sSG.execute();
+                }else if(editTextWhatIf.getText().toString().equals("")){
+                    //
+                    Log.i("tago" , "whatifi boş gecme");
+                }else if(editTextBut.getText().toString().equals("")){
+                    //
+                    Log.i("tago" , "resultı bos gecme");
                 }
             }
         });
@@ -150,27 +100,25 @@ public class Home extends Activity {
         String userid = sharedPrefIdAl();
         textviewyesyuzdesi = (TextView) findViewById(R.id.textView12);
         textviewuyumlulukyuzdesi = (TextView) findViewById(R.id.textView14);
-        ServerYesYuzdesiCek sYYC = new ServerYesYuzdesiCek(userid);
-        sYYC.execute();
+        //ServerYesYuzdesiCek sYYC = new ServerYesYuzdesiCek(userid);
+        //sYYC.execute();
     }
 
     private class ServerSoruyuGonder extends AsyncTask<String, Void, String> {
-        String whatif, result, userid, kategori;
+        String whatif, result, userid;
         String charset, query;
 
-        public ServerSoruyuGonder(String whatif, String result, String kategori, String userid) {
+        public ServerSoruyuGonder(String whatif, String result, String userid) {
             this.whatif = whatif;
             this.result = result;
-            this.kategori = kategori;
             this.userid = userid;
             charset = "UTF-8";
             String param1 = "whatif";
             String param2 = "result";
-            String param3 = "kategori";
-            String param4 = "userid";
+            String param3 = "userid";
             try {
-                query = String.format("param1=%s&param2=%s&param3=%s&param4=%s", URLEncoder.encode(param1, charset),
-                        URLEncoder.encode(param2, charset), URLEncoder.encode(param3, charset), URLEncoder.encode(param4, charset));
+                query = String.format("param1=%s&param2=%s&param3=%s", URLEncoder.encode(param1, charset),
+                        URLEncoder.encode(param2, charset), URLEncoder.encode(param3, charset));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
