@@ -35,7 +35,7 @@ public class Home extends Activity {
     TextView textviewyesyuzdesi;
     TextView textviewuyumlulukyuzdesi;
     String a;
-    String asabiyim;
+    String asabiyimasabisin;
 
     private String sharedPrefIdAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
