@@ -34,8 +34,6 @@ public class Home extends Activity {
 
     TextView textviewyesyuzdesi;
     TextView textviewuyumlulukyuzdesi;
-    String a;
-    String asabiyimasabisin;
 
     private String sharedPrefIdAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
@@ -82,14 +80,14 @@ public class Home extends Activity {
         final String userid = sharedPrefIdAl();
         buttonSoruyuGonder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (!editTextWhatIf.getText().toString().equals("") && !editTextBut.getText().toString().equals("")) {
-                    ServerSoruyuGonder sSG = new ServerSoruyuGonder(editTextWhatIf.getText().toString(),
-                            editTextBut.getText().toString(), userid);
+                if (!editTextWhatIf.getText().toString().equals("") && !editTextBut.getText().toString().equals("")&&
+                        editTextWhatIf.getText().toString().length()>4 && editTextBut.getText().toString().length()>4){
+                    ServerSoruyuGonder sSG = new ServerSoruyuGonder(editTextWhatIf.getText().toString(), editTextBut.getText().toString(), userid);
                     sSG.execute();
-                }else if(editTextWhatIf.getText().toString().equals("")){
+                }if(editTextWhatIf.getText().toString().length()<5){
                     //
                     Log.i("tago" , "whatifi boş gecme");
-                }else if(editTextBut.getText().toString().equals("")){
+                }if(editTextBut.getText().toString().length()<5){
                     //
                     Log.i("tago" , "resultı bos gecme");
                 }
@@ -101,8 +99,9 @@ public class Home extends Activity {
         String userid = sharedPrefIdAl();
         textviewyesyuzdesi = (TextView) findViewById(R.id.textView12);
         textviewuyumlulukyuzdesi = (TextView) findViewById(R.id.textView14);
-        //ServerYesYuzdesiCek sYYC = new ServerYesYuzdesiCek(userid);
-        //sYYC.execute();
+        ServerIstatistikCek sIR = new ServerIstatistikCek(userid);
+        sIR.execute();
+
     }
 
     private class ServerSoruyuGonder extends AsyncTask<String, Void, String> {
@@ -128,8 +127,8 @@ public class Home extends Activity {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.187.60/diyelimki/add_question.php?whatif=" + URLEncoder.encode(whatif, charset) +
-                        "&result=" + URLEncoder.encode(result, charset) + "&kategori=" + "3" + "&userid=" + URLEncoder.encode(userid, charset)).openConnection();
+                connection = new URL("http://185.22.187.60/diyelimki/kullanicidansoru.php?whatif=" + URLEncoder.encode(whatif, charset) +
+                        "&result=" + URLEncoder.encode(result, charset) + "&userid=" + URLEncoder.encode(userid, charset)).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -142,20 +141,20 @@ public class Home extends Activity {
                 output.close();
                 InputStream is = connection.getInputStream();
             } catch (IOException exception) {
-                Log.i("tago", "işleme girdi hata var " + exception.getMessage());
+
             }
             return "haha";
         }
     }
 
-    private class ServerYesYuzdesiCek extends AsyncTask<String, Void, String> {
+    private class ServerIstatistikCek extends AsyncTask<String, Void, String> {
 
-        String serverid,charset,param1,query;
+        String userid,charset,param1,query;
         String totalyes,totalno,agree,disagree;
-        public ServerYesYuzdesiCek(String serverid) {
-            this.serverid = serverid;
+        public ServerIstatistikCek(String userid) {
+            this.userid = userid;
             charset = "UTF-8";
-            param1 = "id";
+            param1 = "userid";
             try {
                 query = String.format("param1=%s", URLEncoder.encode(param1, charset));
             } catch (UnsupportedEncodingException e) {
@@ -167,7 +166,7 @@ public class Home extends Activity {
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.187.60/diyelimki/userstat.php?id=3").openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.60/diyelimki/userstat.php?id=" + userid).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -185,14 +184,14 @@ public class Home extends Activity {
                 BufferedReader in;
                 if (connection.getResponseCode() == 200) {
                     in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    String inputline = null;
-                    inputline = in.readLine();
+                    String inputline = in.readLine();
                     JSONArray jsono = new JSONArray(inputline);
                     JSONObject jsonObject = jsono.getJSONObject(0);
                     totalyes = jsonObject.optString("totalyes");
                     totalno = jsonObject.optString("totalno");
                     agree = jsonObject.optString("agree");
                     disagree = jsonObject.optString("disagree");
+                    Log.i("tago" , totalyes + " " + totalno + " " + agree + " " + disagree);
                 }
             }catch (IOException exception){
                 exception.printStackTrace();
