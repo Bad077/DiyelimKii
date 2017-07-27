@@ -17,6 +17,12 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +41,7 @@ import java.net.URLEncoder;
 import java.util.List;
 
 
-public class SoruSayfasi extends Activity {
+public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
     private String sharedPrefUserIdAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
@@ -45,10 +51,14 @@ public class SoruSayfasi extends Activity {
     int soruSirasi ;
     TextView textWhatif , textResult;
     List<String> rowidler , soruidler ,whatifler , resultlar , yesler , nolar , soranuseridler;
+    private RewardedVideoAd reklamObjesi;
 
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.sorusayfasi);
+        reklamObjesi = MobileAds.getRewardedVideoAdInstance(this);
+        reklamObjesi.setRewardedVideoAdListener(this);
+        loadRewardedVideoAd();
         databasedenSorulariAl();
         tanimlar();
         sonrakisoru();
@@ -83,7 +93,9 @@ public class SoruSayfasi extends Activity {
                 buttonReklam.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+                        if (reklamObjesi.isLoaded()) {
+                            reklamObjesi.show();
+                        }
                     }
                 });
 
@@ -231,6 +243,54 @@ public class SoruSayfasi extends Activity {
         textWhatif.setText(whatif);
         textResult.setText(result);
         soruSirasi++;
+    }
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+        Log.i("tago" , "onRewardedVideoAdLoaded");
+    }
+    @Override
+    public void onRewardedVideoAdOpened() {
+        Log.i("tago" , "onRewardedVideoAdOpened");
+    }
+    @Override
+    public void onRewardedVideoStarted() {
+        Log.i("tago" , "onRewardedVideoStarted");
+    }
+    @Override
+    public void onRewardedVideoAdClosed() {
+        Log.i("tago" , "onRewardedVideoAdClosed");
+    }
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        Log.i("tago" , "onRewarded");
+    }
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+        Log.i("tago" , "onRewardedVideoAdLeftApplication");
+    }
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+        Log.i("tago" , "onRewardedVideoAdFailedToLoad");
+    }
+    @Override
+    public void onResume() {
+        reklamObjesi.resume(this);
+        super.onResume();
+    }
+    @Override
+    public void onPause() {
+        reklamObjesi.pause(this);
+        super.onPause();
+    }
+    @Override
+    public void onDestroy() {
+        reklamObjesi.destroy(this);
+        super.onDestroy();
+    }
+
+    private void loadRewardedVideoAd() {
+        reklamObjesi.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
     }
 
     private class ServerEvetCevapVer extends AsyncTask<String, Void, String> {
