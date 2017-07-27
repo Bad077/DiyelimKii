@@ -1,6 +1,7 @@
 package com.armin.droxoft.diyelimki;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -68,6 +70,26 @@ public class SoruSayfasi extends Activity {
     }
 
     private void tanimlar() {
+        ImageButton coinbutton = (ImageButton) findViewById(R.id.coinButton);
+        coinbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog = new Dialog(SoruSayfasi.this);
+                dialog.setContentView(R.layout.coindialog);
+                dialog.setTitle("Başlık");
+                TextView text = (TextView) dialog.findViewById(R.id.text);
+                text.setText("Android custom dialog example!");
+                Button buttonReklam = (Button) dialog.findViewById(R.id.buttonReklam);
+                buttonReklam.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
         ImageButton homebutton = (ImageButton) findViewById(R.id.imageButton);
         homebutton.setOnClickListener(new View.OnClickListener() {
             @Override
