@@ -247,7 +247,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
     @Override
     public void onRewardedVideoAdLoaded() {
-        Log.i("tago" , "onRewardedVideoAdLoaded");
+        Log.i("tago" , "onRewardedVideoAdLoaded");;
     }
     @Override
     public void onRewardedVideoAdOpened() {
