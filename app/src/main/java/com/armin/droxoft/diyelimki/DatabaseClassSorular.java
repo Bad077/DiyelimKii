@@ -184,7 +184,6 @@ public class DatabaseClassSorular {
         return kayitliuseridler;
     }
 
-
     private static class DbHelper extends SQLiteOpenHelper {
 
         public DbHelper(Context context) {

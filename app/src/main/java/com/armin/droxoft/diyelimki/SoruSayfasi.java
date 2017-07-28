@@ -38,6 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -48,24 +49,43 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         return sharedPreferences.getString("userid", "defaultuserid");
     }
 
+    private void sharedPrefKullaniciKacinciSorudaKaydet(String soruid){
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("kacincisoruda", soruid);
+        editor.apply();
+    }
+
+    private String sharedPrefKullaniciKacinciSorudaAl(){
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        return sharedPreferences.getString("kacincisoruda" , "0");
+    }
+
+
     int soruSirasi ;
-    TextView textWhatif , textResult;
+    int soruHakki = 11;
+    TextView textWhatif , textResult , textKalansoru;
     List<String> rowidler , soruidler ,whatifler , resultlar , yesler , nolar , soranuseridler;
     private RewardedVideoAd reklamObjesi;
 
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.sorusayfasi);
-        reklamObjesi = MobileAds.getRewardedVideoAdInstance(this);
-        reklamObjesi.setRewardedVideoAdListener(this);
-        loadRewardedVideoAd();
+        reklamKurulumu();
         databasedenSorulariAl();
         tanimlar();
+        soruHakkiSistemi();
         sonrakisoru();
     }
 
+    private void reklamKurulumu(){
+        reklamObjesi = MobileAds.getRewardedVideoAdInstance(this);
+        reklamObjesi.setRewardedVideoAdListener(this);
+        loadRewardedVideoAd();
+    }
+
     private void databasedenSorulariAl(){
-        soruSirasi = 0;
+        soruSirasi = Integer.valueOf(sharedPrefKullaniciKacinciSorudaAl())-1;
         DatabaseClassSorular dB = new DatabaseClassSorular(this);
         dB.open();
         rowidler = dB.databasedenrowidcek();
@@ -114,6 +134,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         });
         textWhatif = (TextView) findViewById(R.id.textWhatif);
         textResult = (TextView) findViewById(R.id.textResult);
+        textKalansoru = (TextView) findViewById(R.id.textkalansoru);
         final Animation ButtonAnim_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_out);
         final Animation ButtonAnim_out_late = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim__out_late);
         final Animation ButtonAnim_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_in);
@@ -209,6 +230,11 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         });
     }
 
+    private void soruHakkiSistemi(){
+        textKalansoru.setText(String.valueOf(soruHakki));
+
+    }
+
     private void soruEvetCevaplandi(String soruid) {
         String uyum;
         int yessayisi = Integer.valueOf(yesler.get(soruSirasi-1));
@@ -238,10 +264,20 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
     }
 
     private void sonrakisoru(){
+        Calendar c = Calendar.getInstance();
+        int seconds = c.get(Calendar.SECOND);
+        Log.i("tago" , "seconds " + String.valueOf(seconds));
+        soruHakki--;
+        soruHakkiSistemi();
+        if (soruSirasi == -1) {
+            soruSirasi=0;
+        }
+        String soruid = soruidler.get(soruSirasi);
         String whatif = whatifler.get(soruSirasi);
         String result = resultlar.get(soruSirasi);
         textWhatif.setText(whatif);
         textResult.setText(result);
+        sharedPrefKullaniciKacinciSorudaKaydet(soruid);
         soruSirasi++;
     }
 
