@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.armin.droxoft.diyelimki.MainActivity"
-    android:background="@mipmap/ne_dersin">
+    android:background="@mipmap/loading">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,17 +13,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/coinButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="13dp"
-            android:background="#00000000"
-            android:src="@mipmap/video_izle" />
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -36,6 +25,17 @@
             android:background="#00000000"
             android:src="@mipmap/home" />
 
+        <ImageButton
+            android:id="@+id/coinButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="11dp"
+            android:background="#00000000"
+            android:src="@mipmap/video_izle" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@mipmap/diyelimki"
+        android:background="@mipmap/diyelimki_balon"
         android:id="@+id/relativeLayout"
         android:layout_marginTop="60dp">
 
@@ -59,15 +59,13 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ama"
+        android:layout_above="@+id/bEvet"
         android:layout_below="@+id/relativeLayout"
-        android:layout_alignLeft="@+id/relativeLayout"
-        android:layout_alignStart="@+id/relativeLayout"
-        android:id="@+id/relativeLayout2"
-        android:layout_marginTop="5dp"
-        >
+        android:layout_centerHorizontal="true"
+        android:background="@mipmap/ama_balon">
 
         <TextView
             android:id="@+id/textResult"
@@ -79,7 +77,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
             android:textStyle="bold" />
+
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -90,30 +90,31 @@
         android:layout_below="@+id/relativeLayout2">
 
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Evet"
-        android:id="@+id/bEvet"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerHorizontal="true"
-        android:background="#00000000"
-        android:src="@mipmap/evet"
-        android:layout_marginBottom="5dp" />
+        <ImageButton
+            android:id="@+id/bEvet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@mipmap/evet"
+            android:text="Evet"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hayır"
         android:id="@+id/bHayir"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:background="#00000000"
         android:src="@mipmap/hayir"
-        android:layout_marginBottom="5dp" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp" />
 
     </RelativeLayout>
 
@@ -145,6 +146,7 @@
                 android:layout_marginLeft="20dp"/>
 
         </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
