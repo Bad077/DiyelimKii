@@ -1,8 +1,10 @@
 package com.armin.droxoft.diyelimki;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -38,15 +40,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
 
 public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
-    private String sharedPrefUserIdAl() {
-        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("userid", "defaultuserid");
+    private void sharedPrefDurumKaydet(String durum) {
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("durum" , durum);
+        editor.apply();
     }
 
     private void sharedPrefKullaniciKacinciSorudaKaydet(String soruid){
@@ -56,11 +62,20 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         editor.apply();
     }
 
+    private String sharedPrefUserIdAl() {
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("userid", "defaultuserid");
+    }
+
     private String sharedPrefKullaniciKacinciSorudaAl(){
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
         return sharedPreferences.getString("kacincisoruda" , "0");
     }
 
+    private String sharedPrefDurumAl(){
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        return sharedPreferences.getString("durum" , "defaultdurum");
+    }
 
     int soruSirasi ;
     int soruHakki = 11;
@@ -231,15 +246,52 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
     }
 
     private void soruHakkiSistemi(){
-        textKalansoru.setText(String.valueOf(soruHakki));
+        String durum = sharedPrefDurumAl();
+        String sonsoruhakki = String.valueOf(11);
+        if(!durum.equals("defaultdurum")) {
+            if(durum.length()==19){
+                sonsoruhakki= durum.substring(18, 19);
+            }else if(durum.length()==20){
+                sonsoruhakki = durum.substring(18,20);
+            }
+            DateFormat df = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
+            String date = df.format(Calendar.getInstance().getTime());
 
+            String eskigun = durum.substring(0, 2);
+            String eskiay = durum.substring(3, 5);
+            String eskiyil = durum.substring(6, 10);
+            String eskisaat = durum.substring(12, 14);
+            String eskidakika = durum.substring(15, 17);
+            String mevcutgun = date.substring(0, 2);
+            String mevcutay = date.substring(3, 5);
+            String mevcutyil = date.substring(6, 10);
+            String mevcutsaat = date.substring(12, 14);
+            String mevcutdakika = date.substring(15, 17);
+            if (!eskiyil.equals(mevcutyil) || !eskiay.equals(mevcutay)) {
+                soruHakki = 11;
+            } else if (eskigun.equals(mevcutgun)) {
+                soruHakki = Integer.valueOf(sonsoruhakki) + 1;
+            } else if (Integer.valueOf(mevcutgun) - Integer.valueOf(eskigun) > 1) {
+                soruHakki = 11;
+            } else {
+                int mevcutdeger = (Integer.valueOf(mevcutsaat) * 60) + Integer.valueOf(mevcutdakika);
+                int gecmisdeger = (Integer.valueOf(eskisaat) * 60) + Integer.valueOf(eskidakika);
+                int fark = mevcutdeger - gecmisdeger;
+                if (fark > 1440) {
+                    soruHakki = 11;
+                } else {
+                    soruHakki = Integer.valueOf(sonsoruhakki) + 1;
+                }
+
+            }
+
+        }
     }
 
     private void soruEvetCevaplandi(String soruid) {
         String uyum;
         int yessayisi = Integer.valueOf(yesler.get(soruSirasi-1));
         int nosayisi = Integer.valueOf(nolar.get(soruSirasi-1));
-        Log.i("tago " ,"yes sayisi " + String.valueOf(yessayisi)+ " no sayisi " +String.valueOf(nosayisi));
         if(yessayisi>nosayisi){
             uyum="1";
         }else{
@@ -253,7 +305,6 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         String uyum;
         int yessayisi = Integer.valueOf(yesler.get(soruSirasi-1));
         int nosayisi = Integer.valueOf(nolar.get(soruSirasi-1));
-        Log.i("tago " ,"yes sayisi " + String.valueOf(yessayisi)+ " no sayisi " +String.valueOf(nosayisi));
         if(yessayisi>nosayisi){
             uyum="0";
         }else{
@@ -263,22 +314,48 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         sHCV.execute();
     }
 
-    private void sonrakisoru(){
-        Calendar c = Calendar.getInstance();
-        int seconds = c.get(Calendar.SECOND);
-        Log.i("tago" , "seconds " + String.valueOf(seconds));
-        soruHakki--;
-        soruHakkiSistemi();
-        if (soruSirasi == -1) {
-            soruSirasi=0;
+    private void sonrakisoru() {
+        if (soruHakki < 1) {
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(SoruSayfasi.this);
+            builder1.setMessage("Hakkın bitti piç");
+            builder1.setCancelable(true);
+
+            builder1.setPositiveButton(
+                    "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            builder1.setNegativeButton(
+                    "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        } else {
+            soruHakki--;
+            textKalansoru.setText(String.valueOf(soruHakki));
+            if (soruSirasi == -1) {
+                soruSirasi = 0;
+            }
+            String soruid = soruidler.get(soruSirasi);
+            String whatif = whatifler.get(soruSirasi);
+            String result = resultlar.get(soruSirasi);
+            textWhatif.setText(whatif);
+            textResult.setText(result);
+            sharedPrefKullaniciKacinciSorudaKaydet(soruid);
+            soruSirasi++;
+            DateFormat df = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
+            String date = df.format(Calendar.getInstance().getTime());
+            String durum = date + " " + String.valueOf(soruHakki);
+            sharedPrefDurumKaydet(durum);
         }
-        String soruid = soruidler.get(soruSirasi);
-        String whatif = whatifler.get(soruSirasi);
-        String result = resultlar.get(soruSirasi);
-        textWhatif.setText(whatif);
-        textResult.setText(result);
-        sharedPrefKullaniciKacinciSorudaKaydet(soruid);
-        soruSirasi++;
     }
 
     @Override
