@@ -2,24 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/loading">
+    android:background="@mipmap/giris_sayfasi">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nick Ver" />
+        android:layout_marginTop="280dp">
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/buttongiris"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Giriş Yap" />
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/giris_edittext"
+            android:ems="10"
+            android:hint="Lütfen bir nick giriniz.."
+            android:inputType="textPersonName"
+            android:textAlignment="center"/>
+
+        <ImageButton
+            android:id="@+id/buttongiris"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText3"
+            android:layout_centerHorizontal="true"
+            android:background="#00000000"
+            android:paddingTop="10dp"
+            android:src="@mipmap/giris_yap"
+            android:text="Giriş Yap" />
+    </RelativeLayout>
 </LinearLayout>

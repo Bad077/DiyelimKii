@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.android.gms.ads.MobileAds;
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             sorularidatabaseeyukle();
         } else {
             setContentView(R.layout.girissayfasi);
-            Button girisbutonu = (Button) findViewById(R.id.buttongiris);
+            ImageButton girisbutonu = (ImageButton) findViewById(R.id.buttongiris);
             girisbutonu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

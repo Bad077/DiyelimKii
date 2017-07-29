@@ -88,7 +88,7 @@ public class Home extends Activity {
     private void tanimlarSoruOlusturma() {
         final EditText editTextWhatIf = (EditText) findViewById(R.id.editText);
         final EditText editTextBut = (EditText) findViewById(R.id.editText2);
-        Button buttonSoruyuGonder = (Button) findViewById(R.id.button);
+        ImageButton buttonSoruyuGonder = (ImageButton) findViewById(R.id.gonder_button);
         final String userid = sharedPrefIdAl();
         buttonSoruyuGonder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
