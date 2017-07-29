@@ -10,16 +10,16 @@
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_height="60dp"
+        >
 
         <ImageButton
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00000000"
-            android:src="@mipmap/geri"
-            android:layout_alignParentTop="true"
+            android:src="@mipmap/back_button"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
@@ -39,7 +39,8 @@
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"></TabWidget>
+                android:layout_marginTop="15dp"
+                android:background="#00000000"></TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -62,23 +63,14 @@
                         android:layout_marginTop="17dp"
                         android:background="@mipmap/soru_balonu">
 
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="23dp"
-                            android:text="Diyelim Ki.."
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
-
                         <EditText
                             android:id="@+id/editText"
                             android:layout_width="250dp"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/textView9"
-                            android:layout_centerHorizontal="true"
-                            android:hint="Soru yazın.." />
+                            android:hint="Soru yazın.."
+                            android:background="#00000000"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
 
                     </RelativeLayout>
 
@@ -91,35 +83,30 @@
                         android:layout_below="@+id/relativeLayout3"
                         android:background="@mipmap/soru_balonu_turuncu">
 
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="20dp"
-                            android:text="Ama.. "
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@android:color/white" />
-
                         <EditText
                             android:id="@+id/editText2"
                             android:layout_width="250dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView11"
                             android:layout_centerHorizontal="true"
-                            android:hint="Soru yazın.." />
+                            android:layout_centerVertical="true"
+                            android:background="#00000000"
+                            android:hint="Soru yazın.."
+                            android:maxWidth="200dp"
+                            android:textColor="#FFFFFF"/>
 
                     </RelativeLayout>
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:src="@mipmap/gonder"
+                        android:background="#00000000"
+                        android:text="Gönder"
                         android:layout_below="@+id/relativeLayout4"
                         android:layout_centerHorizontal="true"
-                        android:text="Gönder" />
+                        android:layout_marginTop="33dp" />
                 </RelativeLayout>
 
                 <RelativeLayout

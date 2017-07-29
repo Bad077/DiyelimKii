@@ -8,59 +8,61 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal">
+        android:id="@+id/relativeLayout5">
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@mipmap/home_button"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="15dp"
-            android:background="#00000000"
-            android:src="@mipmap/home" />
+            />
 
         <ImageButton
             android:id="@+id/coinButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="11dp"
             android:background="#00000000"
-            android:src="@mipmap/video_izle" />
+            android:src="@mipmap/video_izle"
+            android:layout_alignBottom="@+id/imageButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:background="@mipmap/diyelimki_balon"
         android:id="@+id/relativeLayout"
-        android:layout_marginTop="60dp">
+        android:layout_below="@+id/relativeLayout5"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_alignStart="@+id/relativeLayout2">
 
         <TextView
             android:id="@+id/textWhatif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Fenerbaahsdsadasdasdasdasdddddddddddddddddd"
+            android:textSize="20dp"
+            android:textAppearance="?android:attr/textAppearance"
+            android:textColor="#000"
             android:textStyle="bold"
-            android:textColor="#000"/>
+            android:maxWidth="250dp"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bEvet"
         android:layout_below="@+id/relativeLayout"
@@ -74,12 +76,21 @@
             android:layout_alignParentBottom="false"
             android:layout_centerInParent="true"
             android:text="Large Text"
+            android:textSize="20dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
             android:textStyle="bold" />
 
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ne_dersin"
+        android:id="@+id/ne_dersin"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_centerHorizontal="true">
 
+    </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,7 +98,7 @@
         android:visibility="visible"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/relativeLayout2">
+        android:layout_below="@+id/ne_dersin">
 
 
         <ImageButton
@@ -129,8 +140,6 @@
                 android:layout_width="200dp"
                 android:layout_height="100dp"
                 android:id="@+id/bEvet2"
-
-
                 android:layout_marginLeft="29dp"
                 android:layout_marginStart="29dp"
                 android:layout_alignParentTop="true"

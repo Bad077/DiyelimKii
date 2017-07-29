@@ -39,7 +39,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/textView14"
-        android:layout_alignTop="@+id/textView13"
+        android:layout_alignBaseline="@+id/textView13"
+        android:layout_alignBottom="@+id/textView13"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>
