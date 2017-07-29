@@ -245,6 +245,13 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         });
     }
 
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
+
     private void soruHakkiSistemi(){
         String durum = sharedPrefDurumAl();
         String sonsoruhakki = String.valueOf(11);

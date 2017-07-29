@@ -87,18 +87,6 @@ public class DatabaseClassSorular {
         return kayitliidler;
     }
 
-    public String soruidcek(int a) {
-        String[] kolonlar = new String[]{ROWID, SORUID, WHATIF, RESULT, YES, NO, USERID};
-        Cursor c = sqLiteDatabase.query(TABLENAME, kolonlar, ROWID + "='" + a + "'", null, null, null, null);
-        List<String> kayitlisoruidler = new ArrayList<>();
-        int soruidindexi = c.getColumnIndex(SORUID);
-        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-            kayitlisoruidler.add(c.getString(soruidindexi));
-        }
-        c.close();
-        return kayitlisoruidler.get(0);
-    }
-
     public List<String> databasedenrowidcek() {
 
         String[] kolonlar = new String[]{ROWID, SORUID, WHATIF, RESULT, YES, NO, USERID};

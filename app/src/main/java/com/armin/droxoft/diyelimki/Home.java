@@ -85,6 +85,13 @@ public class Home extends Activity {
 
     }
 
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
+
     private void tanimlarSoruOlusturma() {
         final EditText editTextWhatIf = (EditText) findViewById(R.id.editText);
         final EditText editTextBut = (EditText) findViewById(R.id.editText2);
