@@ -39,13 +39,13 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:background="@mipmap/diyelimki_balon"
         android:id="@+id/relativeLayout"
         android:layout_below="@+id/relativeLayout5"
-        android:layout_alignLeft="@+id/relativeLayout2"
-        android:layout_alignStart="@+id/relativeLayout2">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/textWhatif"
@@ -57,12 +57,12 @@
             android:textAppearance="?android:attr/textAppearance"
             android:textColor="#000"
             android:textStyle="bold"
-            android:maxWidth="250dp"/>
+            android:maxWidth="300dp"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bEvet"
         android:layout_below="@+id/relativeLayout"
@@ -79,7 +79,8 @@
             android:textSize="20dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxWidth="300dp"/>
 
     </RelativeLayout>
     <RelativeLayout
@@ -136,10 +137,11 @@
             android:layout_alignParentBottom="true"
             android:paddingBottom="10dp"
             android:visibility="invisible">
-            <ImageButton
+            <Button
                 android:layout_width="200dp"
                 android:layout_height="100dp"
                 android:id="@+id/bEvet2"
+                android:background="@mipmap/ic_launcher"
                 android:layout_marginLeft="29dp"
                 android:layout_marginStart="29dp"
                 android:layout_alignParentTop="true"

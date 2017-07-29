@@ -157,12 +157,11 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         final RelativeLayout LayStat = (RelativeLayout) findViewById(R.id.layIstatistik);
         final ImageButton evetButton = (ImageButton) findViewById(R.id.bEvet);
         final ImageButton hayirButton = (ImageButton) findViewById(R.id.bHayir);
-        final ImageButton StatButton = (ImageButton) findViewById(R.id.bEvet2);
+        final Button StatButton = (Button) findViewById(R.id.bEvet2);
         final ImageButton ShareButton = (ImageButton) findViewById(R.id.bHayir2);
         evetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("tago", "bevet");
                 evetButton.startAnimation(ButtonAnim_out);
                 hayirButton.startAnimation(ButtonAnim_out_late);
                 Handler handler = new Handler();
@@ -179,14 +178,13 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
                 String soruid = soruidler.get(soruSirasi-1);
                 soruEvetCevaplandi(soruid);
-
+                istatistikleriCek(StatButton,"evet",soruSirasi);
             }
         });
 
         hayirButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("tago", "bhayir");
                 hayirButton.startAnimation(ButtonAnim_out);
                 evetButton.startAnimation(ButtonAnim_out_late);
                 Handler handler = new Handler();
@@ -203,6 +201,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
                 String soruid = soruidler.get(soruSirasi-1);
                 soruHayirCevaplandi(soruid);
+                istatistikleriCek(StatButton,"hayir",soruSirasi);
             }
         });
         StatButton.setOnClickListener(new View.OnClickListener() {
@@ -222,7 +221,6 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
                     }
                 }, 800);
 
-                sonrakisoru();
             }
         });
         ShareButton.setOnClickListener(new View.OnClickListener() {
@@ -241,6 +239,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
                     }
                 }, 800);
+
+                sonrakisoru();
             }
         });
     }
@@ -355,6 +355,20 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             String date = df.format(Calendar.getInstance().getTime());
             String durum = date + " " + String.valueOf(soruHakki);
             sharedPrefDurumKaydet(durum);
+        }
+    }
+
+    private void istatistikleriCek(Button button , String nededi ,int soruSirasi){
+        if(nededi.equals("evet")){
+            String yessayisi = yesler.get(soruSirasi-1);
+            String nosayisi = nolar.get(soruSirasi-1);
+            Log.i("tago" , "yes sayisi : " + yessayisi);
+            Log.i("tago" , "no sayisi : " + nosayisi);
+            int sizingibidusunen = Integer.valueOf(yessayisi)*100/(Integer.valueOf(yessayisi) + Integer.valueOf(nosayisi));
+            int hayirdiyen = Integer.valueOf(nosayisi);
+            button.setText("Sizin gibi düşünen: " + String.valueOf(sizingibidusunen) + " Bu kadarı hayır demiş: " + hayirdiyen);
+        }else{
+
         }
     }
 

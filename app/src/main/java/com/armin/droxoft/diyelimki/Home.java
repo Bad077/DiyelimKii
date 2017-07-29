@@ -215,11 +215,26 @@ public class Home extends Activity {
         }
 
         protected void onPostExecute(String s) {
-            int yesyuzdesi =(100*Integer.valueOf(totalyes))/(Integer.valueOf(totalyes)+Integer.valueOf(totalno));
-            int uyumyuzdesi = (100*Integer.valueOf(agree))/(Integer.valueOf(agree)+Integer.valueOf(disagree));
-            textviewyesyuzdesi.setText(String.valueOf(yesyuzdesi));
-            textviewuyumlulukyuzdesi.setText(String.valueOf(uyumyuzdesi));
+            if(Integer.valueOf(totalyes)==0 && Integer.valueOf(totalno)==0){
+                textviewyesyuzdesi.setText(String.valueOf(0));
+            }else if(Integer.valueOf(totalyes)==0){
+                textviewyesyuzdesi.setText(String.valueOf(0));
+            }else if(Integer.valueOf(totalno)==0){
+                textviewyesyuzdesi.setText(String.valueOf(100));
+            }else{
+                int yesyuzdesi =(100*Integer.valueOf(totalyes))/(Integer.valueOf(totalyes)+Integer.valueOf(totalno));
+                textviewyesyuzdesi.setText(String.valueOf(yesyuzdesi));
+            }
+            if(Integer.valueOf(agree)==0 && Integer.valueOf(disagree)==0){
+                textviewuyumlulukyuzdesi.setText(String.valueOf(0));
+            }else if(Integer.valueOf(agree)==0){
+                textviewuyumlulukyuzdesi.setText(String.valueOf(0));
+            }else if(Integer.valueOf(disagree)==0){
+                textviewuyumlulukyuzdesi.setText(String.valueOf(100));
+            }else{
+                int uyumyuzdesi = (100*Integer.valueOf(agree))/(Integer.valueOf(agree)+Integer.valueOf(disagree));
+                textviewuyumlulukyuzdesi.setText(String.valueOf(uyumyuzdesi));
+            }
         }
     }
-
 }
