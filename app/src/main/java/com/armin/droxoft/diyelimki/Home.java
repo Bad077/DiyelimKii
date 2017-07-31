@@ -167,7 +167,7 @@ public class Home extends Activity {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.187.60/diyelimki/kullanicidansoru.php?whatif=" + URLEncoder.encode(whatif, charset) +
+                connection = new URL("http://185.22.187.17/diyelimki/kullanicidansoru.php?whatif=" + URLEncoder.encode(whatif, charset) +
                         "&result=" + URLEncoder.encode(result, charset) + "&userid=" + URLEncoder.encode(userid, charset)).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -206,7 +206,7 @@ public class Home extends Activity {
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.187.60/diyelimki/userstat.php?id=" + userid).openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.17/diyelimki/userstat.php?id=" + userid).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }

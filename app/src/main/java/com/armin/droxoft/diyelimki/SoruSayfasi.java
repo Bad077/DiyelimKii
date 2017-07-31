@@ -451,7 +451,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.187.60/diyelimki/yes.php?id="+soruid+"&userid="+userid+"&status="+uyum).openConnection();
+                connection = new URL("http://185.22.187.17/diyelimki/yes.php?id="+soruid+"&userid="+userid+"&status="+uyum).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -496,7 +496,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         protected String doInBackground(String... params) {
             URLConnection connection = null;
             try {
-                connection = new URL("http://185.22.187.60/diyelimki/no.php?id=" + soruid + "&userid=" + userid + "&status="+uyum).openConnection();
+                connection = new URL("http://185.22.187.17/diyelimki/no.php?id=" + soruid + "&userid=" + userid + "&status="+uyum).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }

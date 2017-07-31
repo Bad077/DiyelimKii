@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.187.60/diyelimki/add_user.php?username="+kullaniciadi).openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.17/diyelimki/add_user.php?username="+kullaniciadi).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return "haha";
+            return "palaba";
         }
     }
 
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             String charset = "UTF-8";
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.187.60/diyelimki/sorugetir.php?").openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.17/diyelimki/sorugetir.php?").openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
