@@ -35,12 +35,17 @@ import java.net.URLEncoder;
 
 public class Home extends Activity {
 
-    TextView textviewyesyuzdesi;
-    TextView textviewuyumlulukyuzdesi;
+    TextView textviewEvetOrani, textviewHayirOrani, textviewEvetSayisi , textviewHayirSayisi,textviewuyumlulukyuzdesi,textviewNick ;
+    Button buttonNickDegistir;
 
     private String sharedPrefIdAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         return sharedPreferences.getString("userid", "defaultuserid");
+    }
+
+    private String sharedPrefNickAl(){
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        return sharedPreferences.getString("nick" , "defaultnick");
     }
 
     protected void onCreate(Bundle bundle) {
@@ -87,13 +92,6 @@ public class Home extends Activity {
 
     }
 
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        startActivity(intent);
-    }
-
     private void tanimlarSoruOlusturma() {
         final EditText editTextWhatIf = (EditText) findViewById(R.id.editText);
         final EditText editTextBut = (EditText) findViewById(R.id.editText2);
@@ -118,11 +116,32 @@ public class Home extends Activity {
 
     private void tanimlarIstatistikBolumu() {
         String userid = sharedPrefIdAl();
-        textviewyesyuzdesi = (TextView) findViewById(R.id.textView12);
-        textviewuyumlulukyuzdesi = (TextView) findViewById(R.id.textView14);
+        textviewEvetOrani = (TextView) findViewById(R.id.textviewevetorani);
+        textviewHayirOrani = (TextView) findViewById(R.id.textviewhayirorani);
+        textviewEvetSayisi = (TextView) findViewById(R.id.textviewevetsayisi);
+        textviewHayirSayisi = (TextView) findViewById(R.id.textviewhayirsayisi);
+        textviewuyumlulukyuzdesi = (TextView) findViewById(R.id.textviewuyumlulukorani);
+        textviewNick = (TextView) findViewById(R.id.textviewnick);
+        String nick = sharedPrefNickAl();
+        textviewNick.setText(nick);
+        buttonNickDegistir = (Button) findViewById(R.id.buttonnickdegistir);
+        buttonNickDegistir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Home.this, NickDegistir.class);
+                startActivity(i);
+            }
+        });
         ServerIstatistikCek sIR = new ServerIstatistikCek(userid);
         sIR.execute();
 
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
     }
 
     private class ServerSoruyuGonder extends AsyncTask<String, Void, String> {
@@ -224,15 +243,22 @@ public class Home extends Activity {
         }
 
         protected void onPostExecute(String s) {
+            textviewEvetSayisi.setText(totalyes);
+            textviewHayirSayisi.setText(totalno);
             if(Integer.valueOf(totalyes)==0 && Integer.valueOf(totalno)==0){
-                textviewyesyuzdesi.setText(String.valueOf(0));
+                textviewEvetOrani.setText(String.valueOf(0));
+                textviewHayirOrani.setText(String.valueOf(0));
             }else if(Integer.valueOf(totalyes)==0){
-                textviewyesyuzdesi.setText(String.valueOf(0));
+                textviewEvetOrani.setText(String.valueOf(0));
+                textviewHayirOrani.setText(String.valueOf(100));
             }else if(Integer.valueOf(totalno)==0){
-                textviewyesyuzdesi.setText(String.valueOf(100));
+                textviewEvetOrani.setText(String.valueOf(100));
+                textviewHayirOrani.setText(String.valueOf(0));
             }else{
                 int yesyuzdesi =(100*Integer.valueOf(totalyes))/(Integer.valueOf(totalyes)+Integer.valueOf(totalno));
-                textviewyesyuzdesi.setText(String.valueOf(yesyuzdesi));
+                textviewEvetOrani.setText(String.valueOf(yesyuzdesi));
+                int hayiryudesi = (100*Integer.valueOf(totalno))/(Integer.valueOf(totalyes)+Integer.valueOf(totalno));
+                textviewHayirOrani.setText(String.valueOf(hayiryudesi));
             }
             if(Integer.valueOf(agree)==0 && Integer.valueOf(disagree)==0){
                 textviewuyumlulukyuzdesi.setText(String.valueOf(0));

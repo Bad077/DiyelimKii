@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -55,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    private void sharedPrefNickKaydet(String nick){
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("nick", nick);
+        editor.apply();
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MobileAds.initialize(this, "ca-app-pub-2381885275528561~4035589141");
@@ -78,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("tago", "kullanıcı adı en fazla 40 harfli olabilir");
                     } else {
                         String kullaniciadi = editTextisim.getText().toString();
+                        sharedPrefNickKaydet(kullaniciadi);
                         kullanicikaydi(kullaniciadi);
                         sorularidatabaseeyukle();
                     }
