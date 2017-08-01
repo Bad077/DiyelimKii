@@ -144,6 +144,12 @@ public class Home extends Activity {
         startActivity(intent);
     }
 
+    protected void onResume() {
+        super.onResume();
+        String nick = sharedPrefNickAl();
+        textviewNick.setText(nick);
+    }
+
     private class ServerSoruyuGonder extends AsyncTask<String, Void, String> {
         String whatif, result, userid;
         String charset, query;
