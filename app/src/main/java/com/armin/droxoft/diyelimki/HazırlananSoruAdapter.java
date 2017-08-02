@@ -31,8 +31,9 @@ public class HazırlananSoruAdapter extends ArrayAdapter{
         return hazirlanansorulararraylist.size();
     }
 
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         final HazirlananSoruHolder hazirlananSoruHolder;
+        Log.i("tago" , "get view pos " + position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(resource, null);
             hazirlananSoruHolder = new HazirlananSoruHolder();
