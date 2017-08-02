@@ -8,12 +8,14 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.ListViewAutoScrollHelper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -32,11 +34,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public class Home extends Activity {
 
     TextView textviewEvetOrani, textviewHayirOrani, textviewEvetSayisi , textviewHayirSayisi,textviewuyumlulukyuzdesi,textviewNick ;
     Button buttonNickDegistir;
+    HazırlananSoruAdapter hazırlananSoruAdapter;
+    ArrayList<HazirlananSoru> hazirlananSoruArrayList;
+    ListView hazirlanansorularlistview;
 
     private String sharedPrefIdAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
@@ -116,6 +122,7 @@ public class Home extends Activity {
 
     private void tanimlarIstatistikBolumu() {
         String userid = sharedPrefIdAl();
+        hazirlanansorularlistview = (ListView) findViewById(R.id.listviewyazdiginsorular);
         textviewEvetOrani = (TextView) findViewById(R.id.textviewevetorani);
         textviewHayirOrani = (TextView) findViewById(R.id.textviewhayirorani);
         textviewEvetSayisi = (TextView) findViewById(R.id.textviewevetsayisi);
@@ -134,6 +141,8 @@ public class Home extends Activity {
         });
         ServerIstatistikCek sIR = new ServerIstatistikCek(userid);
         sIR.execute();
+        ServerHazirlananSorulariCek sHSC = new ServerHazirlananSorulariCek(userid);
+        sHSC.execute();
 
     }
 
@@ -276,6 +285,74 @@ public class Home extends Activity {
                 int uyumyuzdesi = (100*Integer.valueOf(agree))/(Integer.valueOf(agree)+Integer.valueOf(disagree));
                 textviewuyumlulukyuzdesi.setText(String.valueOf(uyumyuzdesi));
             }
+        }
+    }
+
+    private class ServerHazirlananSorulariCek extends AsyncTask<String,Void,String>{
+        String userid,charset,param1,query;
+        String id,whatif,result,yes,no;
+
+        public ServerHazirlananSorulariCek(String userid) {
+            this.userid = userid;
+            charset = "UTF-8";
+            param1 = "userid";
+            try {
+                query = String.format("param1=%s", URLEncoder.encode(param1, charset));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        protected String doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) new URL("http://185.22.187.17/diyelimki/hazirlanansorularicek.php?id=" + userid).openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 ( compatible ) ");
+            connection.setRequestProperty("Accept", "* /*");
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+
+            try {
+                OutputStream output = new BufferedOutputStream(connection.getOutputStream());
+                output.write(query.getBytes(charset));
+                output.close();
+                BufferedReader in;
+                if (connection.getResponseCode() == 200) {
+                    in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String inputline = in.readLine();
+                    hazirlananSoruArrayList = new ArrayList<>();
+                    JSONArray jsono = new JSONArray(inputline);
+                    for(int i = 0 ; i<jsono.length(); i++){
+                        JSONObject jsonObject = jsono.getJSONObject(i);
+                        HazirlananSoru hazirlananSoru = new HazirlananSoru();
+                        hazirlananSoru.setId(jsonObject.optString("id"));
+                        hazirlananSoru.setWhatif(jsonObject.optString("whatif"));
+                        hazirlananSoru.setResult(jsonObject.optString("result"));
+                        hazirlananSoru.setEvetsayisi(jsonObject.optString("yes"));
+                        hazirlananSoru.setHayirsayisi(jsonObject.optString("no"));
+                        hazirlananSoru.setToplamcevap(String.valueOf(Integer.valueOf(jsonObject.optString("yes"))+Integer.valueOf(jsonObject.optString("no"))));
+                        hazirlananSoruArrayList.add(hazirlananSoru);
+                        Log.i("tago" , jsonObject.optString("id") + " " + jsonObject.optString("whatif") + " " + jsonObject.optString("result") + " " + jsonObject.optString("yes") + " " + jsonObject.optString("no"));
+                    }
+                }
+            }catch (IOException exception){
+                exception.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return "bolunduduygularımuykularım";
+        }
+
+        protected void onPostExecute(String s) {
+            hazırlananSoruAdapter = new HazırlananSoruAdapter(Home.this, R.layout.hazirlanansoru, hazirlananSoruArrayList);
+            hazirlanansorularlistview.setAdapter(hazırlananSoruAdapter);
         }
     }
 }
