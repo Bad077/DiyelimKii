@@ -302,15 +302,15 @@
                                     android:text="Sorularına Ait İstatistikler"
                                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
-                                <ListView
-                                    android:id="@+id/listviewyazdiginsorular"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent" />
                             </RelativeLayout>
 
                         </RelativeLayout>
                     </ScrollView>
-
+                    <ListView
+                        android:id="@+id/listviewyazdiginsorular"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="230dp"/>
                 </RelativeLayout>
             </FrameLayout>
         </LinearLayout>
