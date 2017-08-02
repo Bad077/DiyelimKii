@@ -46,7 +46,98 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/tab_background"
+                    android:orientation="vertical">
 
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout3"
+                        android:layout_width="342dp"
+                        android:layout_height="134dp"
+                        android:layout_below="@+id/textView7"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="17dp"
+                        android:background="@mipmap/soru_balonu">
+
+                        <EditText
+                            android:id="@+id/editText"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:hint="Soru yazın.."
+                            android:background="#00000000"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout4"
+                        android:layout_width="342dp"
+                        android:layout_height="134dp"
+                        android:layout_alignLeft="@+id/relativeLayout3"
+                        android:layout_alignStart="@+id/relativeLayout3"
+                        android:layout_below="@+id/relativeLayout3"
+                        android:background="@mipmap/soru_balonu_turuncu">
+
+                        <EditText
+                            android:id="@+id/editText2"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/textView11"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="#00000000"
+                            android:hint="Soru yazın.."
+                            android:inputType="textWebEditText"
+                            android:maxWidth="200dp"
+                            android:textColor="#FFFFFF"/>
+
+                    </RelativeLayout>
+
+                    <ImageButton
+                        android:id="@+id/gonder_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/gonder"
+                        android:background="#00000000"
+                        android:text="Gönder"
+                        android:layout_below="@+id/relativeLayout4"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="33dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toLeftOf="@+id/button2"
+                        android:layout_toStartOf="@+id/button2">
+
+                        <Button
+                            android:id="@+id/button2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tamam"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                        <EditText
+                            android:id="@+id/editText4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Name"
+                            android:layout_toLeftOf="@+id/button2"
+                            android:layout_toStartOf="@+id/button2" />
+                    </RelativeLayout>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/tab3"
@@ -200,29 +291,7 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_below="@+id/relativeLayout6"
-                                android:layout_marginTop="50dp" >
-
-                                <TextView
-                                    android:id="@+id/textView3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_centerHorizontal="true"
-                                    android:text="Sorularına Ait İstatistikler"
-                                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                                <ListView
-                                    android:id="@+id/listviewyazdiginsorular1"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent" />
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/relativeLayout6"
-                                android:visibility="visible">
+                                android:layout_below="@+id/relativeLayout6">
 
                                 <TextView
                                     android:id="@+id/textView2"

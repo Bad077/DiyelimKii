@@ -47,6 +47,7 @@ public class HazırlananSoruAdapter extends ArrayAdapter{
             hazirlananSoruHolder = (HazirlananSoruHolder) convertView.getTag();
         }
         hazirlananSoruHolder.id.setText(hazirlanansorulararraylist.get(position).getId());
+        Log.i("tago" ,"get viewın içinden " +  hazirlanansorulararraylist.get(position).getWhatif());
         hazirlananSoruHolder.whatif.setText(hazirlanansorulararraylist.get(position).getWhatif());
         hazirlananSoruHolder.result.setText(hazirlanansorulararraylist.get(position).getResult());
         hazirlananSoruHolder.evett.setText(hazirlanansorulararraylist.get(position).getEvetsayisi());
