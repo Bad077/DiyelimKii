@@ -2,75 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.04"
-        android:background="#e2e">
-
-        <TextView
-            android:id="@+id/textviewidd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID" />
+        android:background="@mipmap/listview_background">
 
         <TextView
             android:id="@+id/textviewid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
             android:text="TextView"
-            android:layout_below="@+id/textView3"
+            android:layout_alignBaseline="@+id/textviewresultt"
+            android:layout_alignBottom="@+id/textviewresultt"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="22dp" />
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/textviewwhatiff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="TextView" />
+            android:text="TextView"
+            android:layout_alignBaseline="@+id/textviewevett"
+            android:layout_alignBottom="@+id/textviewevett"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/textviewresultt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textviewwhatiff"
-            android:layout_alignStart="@+id/textviewwhatiff"
-            android:layout_alignTop="@+id/textviewid"
+            android:layout_below="@+id/textviewwhatiff"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
             android:text="TextView" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="44dp"
-            android:layout_marginRight="44dp"
-            android:text="Evet" />
-
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/textView15"
-            android:layout_alignRight="@+id/textView15"
-            android:layout_below="@+id/textView15"
-            android:text="Hayır" />
-
-        <TextView
-            android:id="@+id/textview17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textviewresultt"
-            android:layout_alignEnd="@+id/textView16"
-            android:layout_alignRight="@+id/textView16"
-            android:text="Toplam" />
 
         <TextView
             android:id="@+id/textviewevett"
@@ -79,24 +46,28 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="17dp"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/textviewhayirr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/textviewtoplamm"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/textView15"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/textviewtoplamm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textview17"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="TextView" />
+            android:text="TextView"
+            android:layout_alignTop="@+id/textviewresultt"
+            android:layout_alignLeft="@+id/textviewhayirr"
+            android:layout_alignStart="@+id/textviewhayirr"
+            android:layout_marginLeft="9dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="8dp" />
     </RelativeLayout>
 </LinearLayout>
