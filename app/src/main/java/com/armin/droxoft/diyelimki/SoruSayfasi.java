@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ClipDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -79,9 +81,22 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
     int soruSirasi ;
     int soruHakki = 11;
-    TextView textWhatif , textResult , textKalansoru;
+    TextView textWhatif , textResult;
     List<String> rowidler , soruidler ,whatifler , resultlar , yesler , nolar , soranuseridler;
     private RewardedVideoAd reklamObjesi;
+    private ClipDrawable clipDrawable;
+    public static final int MAX_LEVEL = 10000;
+    public static final int LEVEL_DIFF = 100;
+    public static final int DELAY = 30 ;
+    private int currentlevel = 0;
+    private int fromlevel = 0;
+    private int tolevel = 0;
+    private Handler yukariHandler = new Handler();
+    private Runnable animateupimage = new Runnable() {
+        public void run() {
+            doUpAnimation(fromlevel,tolevel);
+        }
+    };
 
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
@@ -115,6 +130,9 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
     }
 
     private void tanimlar() {
+        ImageView image1= (ImageView) findViewById(R.id.imageView1);
+        clipDrawable = (ClipDrawable) image1.getDrawable();
+        clipDrawable.setLevel(0);
         ImageButton coinbutton = (ImageButton) findViewById(R.id.coinButton);
         coinbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +167,6 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         });
         textWhatif = (TextView) findViewById(R.id.textWhatif);
         textResult = (TextView) findViewById(R.id.textResult);
-        textKalansoru = (TextView) findViewById(R.id.textkalansoru);
         final Animation ButtonAnim_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_out);
         final Animation ButtonAnim_out_late = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim__out_late);
         final Animation ButtonAnim_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_in);
@@ -245,13 +262,6 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         });
     }
 
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        startActivity(intent);
-    }
-
     private void soruHakkiSistemi(){
         String durum = sharedPrefDurumAl();
         String sonsoruhakki = String.valueOf(11);
@@ -306,6 +316,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         }
         ServerEvetCevapVer sECV = new ServerEvetCevapVer(soruid,uyum);
         sECV.execute();
+        soruHakki--;
+        ilerlemeIslemi(String.valueOf(soruHakki));
     }
 
     private void soruHayirCevaplandi(String soruid){
@@ -319,6 +331,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         }
         ServerHayirCevapVer sHCV = new ServerHayirCevapVer(soruid,uyum);
         sHCV.execute();
+        soruHakki--;
+        ilerlemeIslemi(String.valueOf(soruHakki));
     }
 
     private void sonrakisoru() {
@@ -326,7 +340,6 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             AlertDialog.Builder builder1 = new AlertDialog.Builder(SoruSayfasi.this);
             builder1.setMessage("Hakkın bitti piç");
             builder1.setCancelable(true);
-
             builder1.setPositiveButton(
                     "Yes",
                     new DialogInterface.OnClickListener() {
@@ -346,8 +359,6 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             AlertDialog alert11 = builder1.create();
             alert11.show();
         } else {
-            soruHakki--;
-            textKalansoru.setText(String.valueOf(soruHakki));
             if (soruSirasi == -1) {
                 soruSirasi = 0;
             }
@@ -365,6 +376,19 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         }
     }
 
+    private void ilerlemeIslemi(String soruHakki){
+        int temmplevel = ((10-Integer.parseInt(soruHakki))*MAX_LEVEL)/10;
+        Log.i("tago" , "ilerleme islemi calistirildi temmplevel " + temmplevel);
+        if(tolevel==temmplevel || temmplevel > MAX_LEVEL){
+            return;
+        }
+        tolevel = (temmplevel<=MAX_LEVEL)?temmplevel:tolevel;
+        if(tolevel>fromlevel){
+            fromlevel = tolevel;
+            yukariHandler.post(animateupimage);
+        }
+    }
+
     private void istatistikleriCek(Button button , String nededi ,int soruSirasi){
         if(nededi.equals("evet")){
             String yessayisi = yesler.get(soruSirasi-1);
@@ -377,6 +401,24 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         }else{
 
         }
+    }
+
+    private void doUpAnimation(int fromlevel, int tolevel) {
+        currentlevel = currentlevel + LEVEL_DIFF;
+        clipDrawable.setLevel(currentlevel);
+        if(currentlevel<=tolevel){
+            yukariHandler.postDelayed(animateupimage,DELAY);
+        }else {
+            yukariHandler.removeCallbacks(animateupimage);
+            fromlevel = tolevel;
+        }
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
     }
 
     @Override

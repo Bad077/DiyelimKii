@@ -19,7 +19,7 @@
             android:ems="10"
             android:hint="Lütfen bir nick giriniz.."
             android:inputType="textPersonName"
-            android:textAlignment="center"/>
+            android:textAlignment="center" />
 
         <ImageButton
             android:id="@+id/buttongiris"
