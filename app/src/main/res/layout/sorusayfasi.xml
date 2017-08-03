@@ -20,7 +20,7 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/coin"
+            android:src="@mipmap/coin"
 
             android:layout_alignBottom="@+id/coinButton"
             android:layout_toLeftOf="@+id/coinButton"
@@ -34,7 +34,6 @@
             android:text="TextView"
 
             android:layout_centerVertical="true"
-
             android:layout_toLeftOf="@+id/imageView"
             android:layout_toStartOf="@+id/imageView" />
 
