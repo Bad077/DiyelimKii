@@ -110,42 +110,6 @@ public class Home extends Activity {
     private void tanimlarSoruOlusturma() {
         final EditText editTextWhatIf = (EditText) findViewById(R.id.editText);
         final EditText editTextBut = (EditText) findViewById(R.id.editText2);
-        final RelativeLayout relativelayoutyazi = (RelativeLayout) findViewById(R.id.relativelayoutyazi);
-        final EditText editTextyazi = (EditText) findViewById(R.id.edittextyazi);
-        Button buttonYaziyiOnayla = (Button) findViewById(R.id.buttonyaziyionayla);
-        buttonYaziyiOnayla.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View vview = Home.this.getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(vview.getWindowToken(), 0);
-                }
-                String hangiedittext = String.valueOf(editTextyazi.getTag());
-                if(hangiedittext.equals("whatif")){
-                    editTextWhatIf.setText(editTextyazi.getText());
-                    relativelayoutyazi.setVisibility(View.INVISIBLE);
-                }else if(hangiedittext.equals("result")){
-                    editTextBut.setText(editTextyazi.getText());
-                    relativelayoutyazi.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-        editTextWhatIf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                relativelayoutyazi.setVisibility(View.VISIBLE);
-                editTextyazi.setTag("whatif");
-                relativelayoutyazi.setY(400);
-            }
-        });
-        editTextBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                relativelayoutyazi.setVisibility(View.VISIBLE);
-                editTextyazi.setTag("result");
-            }
-        });
         ImageButton buttonSoruyuGonder = (ImageButton) findViewById(R.id.gonder_button);
         final String userid = sharedPrefIdAl();
         buttonSoruyuGonder.setOnClickListener(new View.OnClickListener() {

@@ -30,7 +30,7 @@
             android:name=".Home"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="adjustPan">
+            >
         </activity>
         <activity
             android:name=".NickDegistir"
