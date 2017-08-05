@@ -88,8 +88,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
 
     int soruSirasi ;
-    int soruHakki = 11;
-    TextView textWhatif , textResult;
+    int soruHakki = 10;
+    TextView textWhatif , textResult , textKalanSoru;
     List<String> rowidler , soruidler ,whatifler , resultlar , yesler , nolar , soranuseridler;
     private RewardedVideoAd reklamObjesi;
     private ClipDrawable clipDrawable;
@@ -175,6 +175,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         });
         textWhatif = (TextView) findViewById(R.id.textWhatif);
         textResult = (TextView) findViewById(R.id.textResult);
+        textKalanSoru = (TextView) findViewById(R.id.texviewkalansoru);
+        textKalanSoru.setText("10/10");
         final Animation ButtonAnim_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_out);
         final Animation ButtonAnim_out_late = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim__out_late);
         final Animation ButtonAnim_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_in);
@@ -272,7 +274,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
     private void soruHakkiSistemi(){
         String durum = sharedPrefDurumAl();
-        String sonsoruhakki = String.valueOf(11);
+        String sonsoruhakki = String.valueOf(10);
         if(!durum.equals("defaultdurum")) {
             if(durum.length()==19){
                 sonsoruhakki= durum.substring(18, 19);
@@ -293,19 +295,19 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             String mevcutsaat = date.substring(12, 14);
             String mevcutdakika = date.substring(15, 17);
             if (!eskiyil.equals(mevcutyil) || !eskiay.equals(mevcutay)) {
-                soruHakki = 11;
+                soruHakki = 10;
             } else if (eskigun.equals(mevcutgun)) {
-                soruHakki = Integer.valueOf(sonsoruhakki) + 1;
+                soruHakki = Integer.valueOf(sonsoruhakki);
             } else if (Integer.valueOf(mevcutgun) - Integer.valueOf(eskigun) > 1) {
-                soruHakki = 11;
+                soruHakki = 10;
             } else {
                 int mevcutdeger = (Integer.valueOf(mevcutsaat) * 60) + Integer.valueOf(mevcutdakika);
                 int gecmisdeger = (Integer.valueOf(eskisaat) * 60) + Integer.valueOf(eskidakika);
                 int fark = mevcutdeger - gecmisdeger;
                 if (fark > 1440) {
-                    soruHakki = 11;
+                    soruHakki = 10;
                 } else {
-                    soruHakki = Integer.valueOf(sonsoruhakki) + 1;
+                    soruHakki = Integer.valueOf(sonsoruhakki);
                 }
 
             }
@@ -385,6 +387,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
     }
 
     private void ilerlemeIslemi(String soruHakki){
+        String kalansoru = String.valueOf(soruHakki)+"/10";
+        textKalanSoru.setText(kalansoru);
         int temmplevel = ((10-Integer.parseInt(soruHakki))*MAX_LEVEL)/10;
         Log.i("tago" , "ilerleme islemi calistirildi temmplevel " + temmplevel);
         if(tolevel==temmplevel || temmplevel > MAX_LEVEL){
