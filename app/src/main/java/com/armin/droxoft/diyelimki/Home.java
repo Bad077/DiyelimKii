@@ -42,26 +42,27 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Home extends Activity {
 
-    TextView textviewEvetOrani, textviewHayirOrani, textviewEvetSayisi , textviewHayirSayisi,textviewuyumlulukyuzdesi,textviewNick ;
-    ImageButton buttonNickDegistir;
-    HazırlananSoruAdapter hazırlananSoruAdapter;
-    ArrayList<HazirlananSoru> hazirlananSoruArrayList;
-    ListView hazirlanansorularlistview;
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     private String sharedPrefIdAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         return sharedPreferences.getString("userid", "defaultuserid");
     }
 
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
     private String sharedPrefNickAl(){
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
         return sharedPreferences.getString("nick" , "defaultnick");
     }
+
+
+    TextView textviewEvetOrani, textviewHayirOrani, textviewEvetSayisi , textviewHayirSayisi,textviewuyumlulukyuzdesi,textviewNick ;
+    ImageButton buttonNickDegistir;
+    HazırlananSoruAdapter hazırlananSoruAdapter;
+    ArrayList<HazirlananSoru> hazirlananSoruArrayList;
+    ListView hazirlanansorularlistview;
 
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);

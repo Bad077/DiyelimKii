@@ -86,6 +86,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         return sharedPreferences.getString("durum" , "defaultdurum");
     }
 
+
     int soruSirasi ;
     int soruHakki = 11;
     TextView textWhatif , textResult;
