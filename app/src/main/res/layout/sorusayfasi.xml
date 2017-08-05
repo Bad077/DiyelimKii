@@ -70,6 +70,7 @@
         android:layout_marginTop="10dp">
 
         <TextView
+            fontPath="fonts/BalooThambi-Regular.ttf"
             android:id="@+id/textWhatif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
