@@ -17,6 +17,7 @@
             android:layout_centerHorizontal="true"
             android:background="@mipmap/giris_edittext"
             android:ems="10"
+            android:maxLength="15"
             android:hint="Lütfen bir nick giriniz.."
             android:inputType="textPersonName"
             android:textAlignment="center" />

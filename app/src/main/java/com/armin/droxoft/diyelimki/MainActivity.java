@@ -90,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
                     if (editTextisim.getText().toString().length() < 3) {
                         //alert
                         Log.i("tago", "kullanıcı adı en az 3 harfli olabilir");
-                    } else if (editTextisim.getText().toString().length() > 40) {
+                    } else if (editTextisim.getText().toString().length() > 15) {
                         //alert
-                        Log.i("tago", "kullanıcı adı en fazla 40 harfli olabilir");
+                        Log.i("tago", "kullanıcı adı en fazla 15 harfli olabilir");
                     } else {
                         String kullaniciadi = editTextisim.getText().toString();
                         sharedPrefNickKaydet(kullaniciadi);
