@@ -85,8 +85,9 @@ public class Home extends Activity {
         TabHost thost = (TabHost) findViewById(R.id.tabHost);
         TabHost.TabSpec tspec1, tspec2;
         thost.setup();
+        /*
         tspec1 = thost.newTabSpec("Profil");
-        Drawable d = ContextCompat.getDrawable(this, R.mipmap.profil_ttab);
+        Drawable d = ContextCompat.getDrawable(this, R.mipmap.profil_ttab_unselected);
         tspec1.setIndicator("", d);
         tspec1.setContent(R.id.tab3);
         thost.addTab(tspec1);
@@ -94,15 +95,19 @@ public class Home extends Activity {
         Drawable d2 = ContextCompat.getDrawable(this, R.mipmap.soruyaz_tab);
         tspec2.setIndicator("", d2);
         tspec2.setContent(R.id.tab2);
+        thost.addTab(tspec2);*/
+        tspec1 = thost.newTabSpec("Profil");
+        tspec1.setContent(R.id.tab3);
+        tspec1.setIndicator("");
+        thost.addTab(tspec1);
+        tspec2 = thost.newTabSpec("Soru Yaz");
+        tspec2.setContent(R.id.tab2);
+        tspec2.setIndicator("");
         thost.addTab(tspec2);
-//        tspec1 = thost.newTabSpec("İstatistikler");
-//        tspec1.setIndicator("İstatistikler");
-//        tspec1.setContent(R.id.tab3);
-//        thost.addTab(tspec1);
-//        tspec2 = thost.newTabSpec("Soru Oluştur");
-//        tspec2.setIndicator("Soru Oluştur");
-//        tspec2.setContent(R.id.tab2);
-//        thost.addTab(tspec2);
+        Drawable d = ContextCompat.getDrawable(this, R.mipmap.profil_ttab);
+        Drawable c = ContextCompat.getDrawable(this, R.mipmap.soruyaz_tab);
+        thost.getTabWidget().getChildAt(0).setBackground(d);
+        thost.getTabWidget().getChildAt(1).setBackground(c);
         thost.setOnTabChangedListener(new AnimatedTabHostListener(thost));
 
     }
