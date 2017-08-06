@@ -28,14 +28,14 @@
 
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/textviewcoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-
             android:layout_centerVertical="true"
+            android:textColor="#33ee33"
             android:layout_toLeftOf="@+id/imageView"
-            android:layout_toStartOf="@+id/imageView" />
+            android:layout_toStartOf="@+id/imageView"
+            android:text="TextView" />
 
         <ImageButton
             android:id="@+id/imageButton"

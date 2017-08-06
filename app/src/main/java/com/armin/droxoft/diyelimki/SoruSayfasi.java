@@ -71,6 +71,13 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         editor.apply();
     }
 
+    private void sharedPrefCoinKaydet(String coin){
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("coin" , coin);
+        editor.apply();
+    }
+
     private String sharedPrefUserIdAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         return sharedPreferences.getString("userid", "defaultuserid");
@@ -86,10 +93,14 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         return sharedPreferences.getString("durum" , "defaultdurum");
     }
 
+    private String sharedPrefCoinAl(){
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("coin" , "defaultcoin");
+    }
 
     int soruSirasi ;
     int soruHakki = 10;
-    TextView textWhatif , textResult , textKalanSoru;
+    TextView textWhatif , textResult , textKalanSoru, textviewcoin;
     List<String> rowidler , soruidler ,whatifler , resultlar , yesler , nolar , soranuseridler;
     private RewardedVideoAd reklamObjesi;
     private ClipDrawable clipDrawable;
@@ -105,6 +116,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             doUpAnimation(fromlevel,tolevel);
         }
     };
+
 
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
@@ -138,6 +150,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
     }
 
     private void tanimlar() {
+        textviewcoin = (TextView) findViewById(R.id.textviewcoin);
+        textviewcoin.setText(sharedPrefCoinAl());
         ImageView image1= (ImageView) findViewById(R.id.imageView1);
         clipDrawable = (ClipDrawable) image1.getDrawable();
         clipDrawable.setLevel(0);
@@ -451,6 +465,12 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
     }
     @Override
     public void onRewarded(RewardItem rewardItem) {
+        String mevcutcoin = sharedPrefCoinAl();
+        String yenicoin = String.valueOf(Integer.valueOf(mevcutcoin)+5);
+        sharedPrefCoinKaydet(yenicoin);
+        ServerCoinGuncelle sCG = new ServerCoinGuncelle(yenicoin);
+        sCG.execute();
+        textviewcoin.setText(sharedPrefCoinAl());
         Log.i("tago" , "onRewarded");
     }
     @Override
@@ -551,6 +571,48 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             URLConnection connection = null;
             try {
                 connection = new URL("http://185.22.187.17/diyelimki/no.php?id=" + soruid + "&userid=" + userid + "&status="+uyum).openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 ( compatible ) ");
+            connection.setRequestProperty("Accept", "* /*");
+            try {
+                OutputStream output = new BufferedOutputStream(connection.getOutputStream());
+                output.write(query.getBytes(charset));
+                output.close();
+                InputStream is = connection.getInputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "zamama";
+        }
+    }
+
+    private class ServerCoinGuncelle extends AsyncTask<String, Void, String>{
+
+        String charset,query,coin;
+        String userid = sharedPrefUserIdAl();
+
+
+        public ServerCoinGuncelle(String coin){
+            charset = "UTF-8";
+            this.coin = coin;
+            String param1 = "userid";
+            String param2 = "coin";
+            try {
+                query = String.format("param1=%s&param2=%s" , URLEncoder.encode(param1, charset) , URLEncoder.encode(param2,charset));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            URLConnection connection = null;
+            try {
+                connection = new URL("http://185.22.187.17/diyelimki/coinguncelle.php?userid="+userid+"&coin="+coin).openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }

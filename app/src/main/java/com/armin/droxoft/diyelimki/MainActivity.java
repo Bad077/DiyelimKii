@@ -72,6 +72,14 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    private void sharedPrefCoinKaydet(String coin){
+        SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("coin" , coin);
+        editor.apply();
+    }
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MobileAds.initialize(this, "ca-app-pub-2381885275528561~4035589141");
@@ -106,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void kullanicikaydi(String kullaniciadi) {
+            sharedPrefCoinKaydet("5");
             ServerKullaniciKaydet sKK = new ServerKullaniciKaydet(kullaniciadi);
             sKK.execute();
     }
@@ -146,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.187.17/diyelimki/add_user.php?username="+kullaniciadi).openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.17/diyelimki/add_user.php?username="+kullaniciadi+"&coin=5").openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
