@@ -104,8 +104,8 @@ public class Home extends Activity {
         tspec2.setContent(R.id.tab2);
         tspec2.setIndicator("");
         thost.addTab(tspec2);
-        Drawable d = ContextCompat.getDrawable(this, R.mipmap.profil_ttab);
-        Drawable c = ContextCompat.getDrawable(this, R.mipmap.soruyaz_tab);
+        Drawable d = ContextCompat.getDrawable(this, R.drawable.profil_tab);
+        Drawable c = ContextCompat.getDrawable(this, R.drawable.soru_yaz_tab);
         thost.getTabWidget().getChildAt(0).setBackground(d);
         thost.getTabWidget().getChildAt(1).setBackground(c);
         thost.setOnTabChangedListener(new AnimatedTabHostListener(thost));

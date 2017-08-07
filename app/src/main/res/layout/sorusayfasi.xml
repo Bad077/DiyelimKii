@@ -72,14 +72,13 @@
         <TextView
             fontPath="fonts/BalooThambi-Regular.ttf"
             android:id="@+id/textWhatif"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Fenerbaahsdsadasdasdasdasdddddddddddddddddd"
             android:textSize="20dp"
             android:textAppearance="?android:attr/textAppearance"
             android:textColor="#000"
-            android:textStyle="bold"
             android:maxWidth="300dp"/>
     </RelativeLayout>
 
@@ -93,23 +92,22 @@
         android:background="@mipmap/ama_balon">
 
         <TextView
+            fontPath="fonts/BalooThambi-Regular.ttf"
             android:id="@+id/textResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
             android:layout_centerInParent="true"
-            android:text="Large Text"
             android:textSize="20dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
-            android:textStyle="bold"
             android:maxWidth="300dp"/>
 
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ne_dersin"
+        android:background="@mipmap/kabul_edermisin"
         android:id="@+id/ne_dersin"
         android:layout_below="@+id/relativeLayout2"
         android:layout_centerHorizontal="true">
@@ -157,23 +155,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/layIstatistik"
-            android:layout_alignParentBottom="true"
-            android:paddingBottom="10dp"
-            android:visibility="invisible">
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:id="@+id/bEvet2"
-                android:background="@mipmap/ic_launcher"
-                android:layout_marginLeft="29dp"
-                android:layout_marginStart="29dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+            android:visibility="invisible"
+        android:layout_below="@+id/ne_dersin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/istatistik_buttonu"
+            android:id="@+id/bEvet2"
+            android:layout_marginLeft="20dp"
+            >
+            <TextView
+                fontPath="fonts/BalooThambi-Regular.ttf"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HAYIR!"
+                android:textSize="20dp"
+                android:textColor="#fff"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                fontPath="fonts/BalooThambi-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="%34 Senle aynı fikirde!"
+                android:textColor="#fff"
+                android:textSize="12dp"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                fontPath="fonts/BalooThambi-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="%66 Senle farklı fikirde!"
+                android:textColor="#fff"
+                android:textSize="12dp"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
             <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/bHayir2"
+                android:src="@mipmap/gec_button"
+                android:background="#00000000"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/bEvet2"
                 android:layout_toEndOf="@+id/bEvet2"

@@ -13,11 +13,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -160,11 +162,12 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             @Override
             public void onClick(View view) {
                 final Dialog dialog = new Dialog(SoruSayfasi.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.coindialog);
                 dialog.setTitle("Başlık");
                 TextView text = (TextView) dialog.findViewById(R.id.text);
-                text.setText("Android custom dialog example!");
-                Button buttonReklam = (Button) dialog.findViewById(R.id.buttonReklam);
+             //   text.setText("");
+                ImageButton buttonReklam = (ImageButton) dialog.findViewById(R.id.buttonReklam);
                 buttonReklam.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -198,7 +201,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         final RelativeLayout LayStat = (RelativeLayout) findViewById(R.id.layIstatistik);
         final ImageButton evetButton = (ImageButton) findViewById(R.id.bEvet);
         final ImageButton hayirButton = (ImageButton) findViewById(R.id.bHayir);
-        final Button StatButton = (Button) findViewById(R.id.bEvet2);
+        final LinearLayout StatButton = (LinearLayout) findViewById(R.id.bEvet2);
         final ImageButton ShareButton = (ImageButton) findViewById(R.id.bHayir2);
         evetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,7 +222,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
                 String soruid = soruidler.get(soruSirasi-1);
                 soruEvetCevaplandi(soruid);
-                istatistikleriCek(StatButton,"evet",soruSirasi);
+         //       istatistikleriCek(StatButton,"evet",soruSirasi);
             }
         });
 
@@ -242,28 +245,28 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
                 String soruid = soruidler.get(soruSirasi-1);
                 soruHayirCevaplandi(soruid);
-                istatistikleriCek(StatButton,"hayir",soruSirasi);
+        //        istatistikleriCek(StatButton,"hayir",soruSirasi);
             }
         });
-        StatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StatButton.startAnimation(ButtonAnim_out);
-                ShareButton.startAnimation(ButtonAnim_out_late);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        LayStat.setVisibility(View.INVISIBLE);
-                        LayEvetHayir.setVisibility(View.VISIBLE);
-                        evetButton.startAnimation(ButtonAnim_in);
-                        hayirButton.startAnimation(ButtonAnim_in);
-
-                    }
-                }, 800);
-
-            }
-        });
+//        StatButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                StatButton.startAnimation(ButtonAnim_out);
+//                ShareButton.startAnimation(ButtonAnim_out_late);
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        LayStat.setVisibility(View.INVISIBLE);
+//                        LayEvetHayir.setVisibility(View.VISIBLE);
+//                        evetButton.startAnimation(ButtonAnim_in);
+//                        hayirButton.startAnimation(ButtonAnim_in);
+//
+//                    }
+//                }, 800);
+//
+//            }
+//        });
         ShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
