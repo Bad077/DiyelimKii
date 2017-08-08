@@ -103,7 +103,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
     int soruSirasi ;
     int soruHakki = 10;
-    TextView textWhatif , textResult , textKalanSoru, textviewcoin , textviewCevap , textviewAynifikirde, textviewFarklifikirde;
+    TextView textWhatif , textResult , textKalanSoru, textviewcoin , textviewCevap , textviewAynifikirde, textviewFarklifikirde,textcoin;
     List<String> rowidler , soruidler ,whatifler , resultlar , yesler , nolar , soranuseridler;
     private RewardedVideoAd reklamObjesi;
     private ClipDrawable clipDrawable;
@@ -166,8 +166,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.coindialog);
                 dialog.setTitle("Başlık");
-                TextView text = (TextView) dialog.findViewById(R.id.text);
-             //   text.setText("");
+                textcoin = (TextView) dialog.findViewById(R.id.text);
+                textcoin.setText(sharedPrefCoinAl());
                 ImageButton buttonReklam = (ImageButton) dialog.findViewById(R.id.buttonReklam);
                 buttonReklam.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -465,11 +465,12 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
     @Override
     public void onRewarded(RewardItem rewardItem) {
         String mevcutcoin = sharedPrefCoinAl();
-        String yenicoin = String.valueOf(Integer.valueOf(mevcutcoin)+5);
+        String yenicoin = String.valueOf(Integer.valueOf(mevcutcoin)+100);
         sharedPrefCoinKaydet(yenicoin);
         ServerCoinGuncelle sCG = new ServerCoinGuncelle(yenicoin);
         sCG.execute();
         textviewcoin.setText(sharedPrefCoinAl());
+        textcoin.setText(sharedPrefCoinAl());
         Log.i("tago" , "onRewarded");
     }
     @Override

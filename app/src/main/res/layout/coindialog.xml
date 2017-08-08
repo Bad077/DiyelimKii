@@ -15,7 +15,7 @@
     <TextView
         FontPath="fonts/BalooThambi-Regular.ttf"
         android:id="@+id/text"
-        android:text="1000"
+        android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FFF"
