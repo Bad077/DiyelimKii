@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -109,7 +111,6 @@ public class Home extends Activity {
         thost.getTabWidget().getChildAt(0).setBackground(d);
         thost.getTabWidget().getChildAt(1).setBackground(c);
         thost.setOnTabChangedListener(new AnimatedTabHostListener(thost));
-
     }
 
     private void tanimlarSoruOlusturma() {

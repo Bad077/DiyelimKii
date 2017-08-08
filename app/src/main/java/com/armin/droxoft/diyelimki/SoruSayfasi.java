@@ -100,9 +100,10 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         return sharedPreferences.getString("coin" , "defaultcoin");
     }
 
+
     int soruSirasi ;
     int soruHakki = 10;
-    TextView textWhatif , textResult , textKalanSoru, textviewcoin;
+    TextView textWhatif , textResult , textKalanSoru, textviewcoin , textviewCevap , textviewAynifikirde, textviewFarklifikirde;
     List<String> rowidler , soruidler ,whatifler , resultlar , yesler , nolar , soranuseridler;
     private RewardedVideoAd reklamObjesi;
     private ClipDrawable clipDrawable;
@@ -192,6 +193,9 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         });
         textWhatif = (TextView) findViewById(R.id.textWhatif);
         textResult = (TextView) findViewById(R.id.textResult);
+        textviewCevap = (TextView) findViewById(R.id.textviewCevap);
+        textviewAynifikirde = (TextView) findViewById(R.id.textviewAynifikirde);
+        textviewFarklifikirde= (TextView) findViewById(R.id.textviewTersfikirde);
         textKalanSoru = (TextView) findViewById(R.id.texviewkalansoru);
         textKalanSoru.setText("10/10");
         final Animation ButtonAnim_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_out);
@@ -222,7 +226,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
                 String soruid = soruidler.get(soruSirasi-1);
                 soruEvetCevaplandi(soruid);
-         //       istatistikleriCek(StatButton,"evet",soruSirasi);
+                istatistikleriCek("evet",soruSirasi);
             }
         });
 
@@ -245,28 +249,10 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
                 String soruid = soruidler.get(soruSirasi-1);
                 soruHayirCevaplandi(soruid);
-        //        istatistikleriCek(StatButton,"hayir",soruSirasi);
+                istatistikleriCek("hayir",soruSirasi);
             }
         });
-//        StatButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                StatButton.startAnimation(ButtonAnim_out);
-//                ShareButton.startAnimation(ButtonAnim_out_late);
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        LayStat.setVisibility(View.INVISIBLE);
-//                        LayEvetHayir.setVisibility(View.VISIBLE);
-//                        evetButton.startAnimation(ButtonAnim_in);
-//                        hayirButton.startAnimation(ButtonAnim_in);
-//
-//                    }
-//                }, 800);
-//
-//            }
-//        });
+
         ShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -418,17 +404,27 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         }
     }
 
-    private void istatistikleriCek(Button button , String nededi ,int soruSirasi){
+    private void istatistikleriCek(String nededi ,int soruSirasi){
         if(nededi.equals("evet")){
             String yessayisi = yesler.get(soruSirasi-1);
             String nosayisi = nolar.get(soruSirasi-1);
-            Log.i("tago" , "yes sayisi : " + yessayisi);
-            Log.i("tago" , "no sayisi : " + nosayisi);
             int sizingibidusunen = Integer.valueOf(yessayisi)*100/(Integer.valueOf(yessayisi) + Integer.valueOf(nosayisi));
-            int hayirdiyen = Integer.valueOf(nosayisi);
-            button.setText("Sizin gibi düşünen: " + String.valueOf(sizingibidusunen) + " Bu kadarı hayır demiş: " + hayirdiyen);
+            int hayirdiyen = 100 - sizingibidusunen;
+            textviewCevap.setText("EVET");
+            String xx = "% " + String.valueOf(sizingibidusunen)+ " Sizin gibi düşünüyor";
+            textviewAynifikirde.setText(xx);
+            String yy ="% " + String.valueOf(hayirdiyen) + " hayır dedi" ;
+            textviewFarklifikirde.setText(yy);
         }else{
-
+            String yessayisi = yesler.get(soruSirasi-1);
+            String nosayisi = nolar.get(soruSirasi-1);
+            int sizingibidusunen = Integer.valueOf(nosayisi)*100/(Integer.valueOf(yessayisi) + Integer.valueOf(nosayisi));
+            int evetdiyen = 100 - sizingibidusunen;
+            textviewCevap.setText("HAYIR");
+            String xx = "% " + String.valueOf(sizingibidusunen)+ " Sizin gibi düşünüyor";
+            textviewAynifikirde.setText(xx);
+            String yy ="% " + String.valueOf(evetdiyen) + " evet dedi" ;
+            textviewFarklifikirde.setText(yy);
         }
     }
 

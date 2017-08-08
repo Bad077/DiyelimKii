@@ -168,33 +168,39 @@
             android:id="@+id/bEvet2"
             android:layout_marginLeft="20dp"
             >
+
             <TextView
-                fontPath="fonts/BalooThambi-Regular.ttf"
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="HAYIR!"
-                android:textSize="20dp"
-                android:textColor="#fff"
-                android:layout_gravity="center_horizontal"/>
-            <TextView
+                android:id="@+id/textviewCevap"
                 fontPath="fonts/BalooThambi-Regular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="HAYIR!"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textviewAynifikirde"
+                fontPath="fonts/BalooThambi-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
                 android:text="%34 Senle aynı fikirde!"
                 android:textColor="#fff"
-                android:textSize="12dp"
-                android:layout_marginTop="5dp"/>
+                android:textSize="12dp" />
+
             <TextView
+                android:id="@+id/textviewTersfikirde"
                 fontPath="fonts/BalooThambi-Regular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
                 android:text="%66 Senle farklı fikirde!"
                 android:textColor="#fff"
-                android:textSize="12dp"
-                android:layout_marginTop="5dp"/>
+                android:textSize="12dp" />
         </LinearLayout>
 
             <ImageButton
