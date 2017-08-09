@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
@@ -100,10 +101,11 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         return sharedPreferences.getString("coin" , "defaultcoin");
     }
 
-
+    int flag;
     int soruSirasi ;
     int soruHakki = 10;
-    TextView textWhatif , textResult , textKalanSoru, textviewcoin , textviewCevap , textviewAynifikirde, textviewFarklifikirde,textcoin;
+    ImageButton butonSorual , butonReklamizle;
+    TextView textWhatif , textResult , textKalanSoru, textviewcoin , textviewCevap , textviewAynifikirde, textviewFarklifikirde,textcoin,textcoinn;
     List<String> rowidler , soruidler ,whatifler , resultlar , yesler , nolar , soranuseridler;
     private RewardedVideoAd reklamObjesi;
     private ClipDrawable clipDrawable;
@@ -173,6 +175,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
                     @Override
                     public void onClick(View v) {
                         if (reklamObjesi.isLoaded()) {
+                            flag = 1;
                             reklamObjesi.show();
                         }
                     }
@@ -350,27 +353,35 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
     private void sonrakisoru() {
         if (soruHakki < 1) {
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(SoruSayfasi.this);
-            builder1.setMessage("Hakkın bitti piç");
-            builder1.setCancelable(true);
-            builder1.setPositiveButton(
-                    "Yes",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-
-            builder1.setNegativeButton(
-                    "No",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
+            final Dialog dialog = new Dialog(SoruSayfasi.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.hakkinizbitti);
+            dialog.setTitle("Başlık");
+            textcoinn = (TextView) dialog.findViewById(R.id.textcoinn);
+            textcoinn.setText(sharedPrefCoinAl());
+            butonSorual = (ImageButton) dialog.findViewById(R.id.buttonReklam2);
+            butonReklamizle = (ImageButton) dialog.findViewById(R.id.buttonReklam);
+            if(Integer.valueOf(sharedPrefCoinAl())<100){
+                butonReklamizle.setVisibility(View.VISIBLE);
+                butonSorual.setVisibility(View.INVISIBLE);
+            }
+            butonReklamizle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (reklamObjesi.isLoaded()) {
+                        flag = 2;
+                        reklamObjesi.show();
+                    }
+                }
+            });
+            butonSorual.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // SORU ALMA ISLEMI
+                    Log.i("tago" , "soru almaya haziriz");
+                }
+            });
+            dialog.show();
         } else {
             if (soruSirasi == -1) {
                 soruSirasi = 0;
@@ -470,7 +481,13 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         ServerCoinGuncelle sCG = new ServerCoinGuncelle(yenicoin);
         sCG.execute();
         textviewcoin.setText(sharedPrefCoinAl());
-        textcoin.setText(sharedPrefCoinAl());
+        if(flag==1){
+            textcoin.setText(sharedPrefCoinAl());
+        }else if(flag==2){
+            butonSorual.setVisibility(View.VISIBLE);
+            butonReklamizle.setVisibility(View.INVISIBLE);
+            textcoinn.setText(sharedPrefCoinAl());
+        }
         Log.i("tago" , "onRewarded");
     }
     @Override

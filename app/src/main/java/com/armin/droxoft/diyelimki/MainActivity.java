@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void kullanicikaydi(String kullaniciadi) {
-            sharedPrefCoinKaydet("200");
+            sharedPrefCoinKaydet("50");
             ServerKullaniciKaydet sKK = new ServerKullaniciKaydet(kullaniciadi);
             sKK.execute();
     }

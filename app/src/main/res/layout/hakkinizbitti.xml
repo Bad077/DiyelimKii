@@ -12,16 +12,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp">
+
         <TextView
+            android:id="@+id/textcoinn"
             FontPath="fonts/BalooThambi-Regular.ttf"
-            android:id="@+id/text"
-            android:text="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFF"
-            android:textSize="20dp"
             android:layout_marginTop="8dp"
-            />
+            android:text="0"
+            android:textColor="#FFF"
+            android:textSize="20dp" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
