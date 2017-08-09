@@ -14,27 +14,28 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@mipmap/giris_edittext">
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="15"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:textColor="#878787"
-             />
+
+            <TextView
+                android:id="@+id/textviewkackaldi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:text="15"
+                android:textColor="#878787" />
         <EditText
             android:id="@+id/editText3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:ems="10"
             android:maxLength="15"
             android:hint="Lütfen bir nick giriniz.."
             android:inputType="textPersonName"
             android:textAlignment="center"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"/>
         </RelativeLayout>
         <ImageButton
             android:id="@+id/buttongiris"

@@ -12,26 +12,29 @@
         android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:background="@mipmap/nick_degistir_edittext_backg">
-        <EditText
-            fontPath="fonts/BalooThambi-Regular.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:layout_centerHorizontal="true"
-            android:maxLength="15"
-            android:ems="10"
 
-             />
-        <TextView
+        <EditText
+            android:id="@+id/edittextnicko"
             fontPath="fonts/BalooThambi-Regular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12dp"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:maxLength="15"
+
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/textviewkackaldii"
+            fontPath="fonts/BalooThambi-Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="15"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            android:textColor="#878787"/>
+            android:text="15"
+            android:textColor="#878787"
+            android:textSize="12dp" />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -39,18 +42,20 @@
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:layout_marginTop="15dp">
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/nick_degis_iptal"
-            android:background="#00000000"/>
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/butoniptalleregeldik"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00000000"
-            android:src="@mipmap/nick_degis_tamam"
-            android:layout_marginLeft="10dp"/>
+            android:src="@mipmap/nick_degis_iptal" />
+
+        <ImageButton
+            android:id="@+id/butononayikoy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="#00000000"
+            android:src="@mipmap/nick_degis_tamam" />
     </LinearLayout>
 </LinearLayout>

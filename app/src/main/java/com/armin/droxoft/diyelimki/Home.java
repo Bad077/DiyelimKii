@@ -1,6 +1,7 @@
 package com.armin.droxoft.diyelimki;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,10 +12,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.ListViewAutoScrollHelper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -49,6 +54,13 @@ public class Home extends Activity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    private void sharedPrefNickKaydet(String nick){
+        SharedPreferences sP = getSharedPreferences("kullaniciverileri" , Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sP.edit();
+        editor.putString("nick" , nick);
+        editor.apply();
+    }
+
     private String sharedPrefIdAl() {
         SharedPreferences sharedPreferences = getSharedPreferences("kullaniciverileri", Context.MODE_PRIVATE);
         return sharedPreferences.getString("userid", "defaultuserid");
@@ -60,6 +72,7 @@ public class Home extends Activity {
     }
 
 
+    RelativeLayout relLaySorunuzYok;
     TextView textviewEvetOrani, textviewHayirOrani, textviewEvetSayisi , textviewHayirSayisi,textviewuyumlulukyuzdesi,textviewNick ;
     ImageButton buttonNickDegistir;
     HazırlananSoruAdapter hazırlananSoruAdapter;
@@ -137,6 +150,7 @@ public class Home extends Activity {
 
     private void tanimlarIstatistikBolumu() {
         String userid = sharedPrefIdAl();
+        relLaySorunuzYok = (RelativeLayout) findViewById(R.id.relLaysorunuzyok);
         hazirlanansorularlistview = (ListView) findViewById(R.id.listviewyazdiginsorular);
         textviewEvetOrani = (TextView) findViewById(R.id.textviewevetorani);
         textviewHayirOrani = (TextView) findViewById(R.id.textviewhayirorani);
@@ -150,8 +164,58 @@ public class Home extends Activity {
         buttonNickDegistir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Home.this, NickDegistir.class);
-                startActivity(i);
+                final Dialog dialog = new Dialog(Home.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.nickdegistirdialog);
+                dialog.setTitle("Başlık");
+                final EditText edittextNick = (EditText) dialog.findViewById(R.id.edittextnicko);
+                final TextView textviewkackaldii = (TextView) dialog.findViewById(R.id.textviewkackaldii);
+                ImageButton butoniptal = (ImageButton) dialog.findViewById(R.id.butoniptalleregeldik);
+                ImageButton butononay = (ImageButton) dialog.findViewById(R.id.butononayikoy);
+                butononay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (edittextNick.getText().toString().length() < 3) {
+                            //alert
+                            Log.i("tago", "kullanıcı adı en az 3 harfli olabilir");
+                        } else if (edittextNick.getText().toString().length() > 15) {
+                            //alert
+                            Log.i("tago", "kullanıcı adı en fazla 15 harfli olabilir");
+                        } else {
+                            String nick = edittextNick.getText().toString();
+                            sharedPrefNickKaydet(nick);
+                            String id = sharedPrefIdAl();
+                            ServerNickKaydet sNK = new ServerNickKaydet(nick,id);
+                            sNK.execute(id);
+                            textviewNick.setText(nick);
+                            dialog.dismiss();
+                        }
+                    }
+                });
+
+                butoniptal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                    }
+                });
+
+                edittextNick.addTextChangedListener(new TextWatcher() {
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        textviewkackaldii.setText(String.valueOf(15-count));
+                    }
+
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+
+                dialog.show();
             }
         });
         ServerIstatistikCek sIR = new ServerIstatistikCek(userid);
@@ -273,39 +337,45 @@ public class Home extends Activity {
         }
 
         protected void onPostExecute(String s) {
-            textviewEvetSayisi.setText(totalyes);
-            textviewHayirSayisi.setText(totalno);
+            String aa = "("+totalyes+")";
+            textviewEvetSayisi.setText(aa);
+            String bb = "("+totalno+")";
+            textviewHayirSayisi.setText(bb);
+            String cc = "%" + String.valueOf(0);
+            String dd = "%" + String.valueOf(100);
             if(Integer.valueOf(totalyes)==0 && Integer.valueOf(totalno)==0){
-                textviewEvetOrani.setText(String.valueOf(0));
-                textviewHayirOrani.setText(String.valueOf(0));
+                textviewEvetOrani.setText(cc);
+                textviewHayirOrani.setText(cc);
             }else if(Integer.valueOf(totalyes)==0){
-                textviewEvetOrani.setText(String.valueOf(0));
-                textviewHayirOrani.setText(String.valueOf(100));
+                textviewEvetOrani.setText(cc);
+                textviewHayirOrani.setText(dd);
             }else if(Integer.valueOf(totalno)==0){
-                textviewEvetOrani.setText(String.valueOf(100));
-                textviewHayirOrani.setText(String.valueOf(0));
+                textviewEvetOrani.setText(dd);
+                textviewHayirOrani.setText(cc);
             }else{
                 int yesyuzdesi =(100*Integer.valueOf(totalyes))/(Integer.valueOf(totalyes)+Integer.valueOf(totalno));
-                textviewEvetOrani.setText(String.valueOf(yesyuzdesi));
+                String ff = "%" + String.valueOf(yesyuzdesi);
+                textviewEvetOrani.setText(ff);
                 int hayiryudesi = (100*Integer.valueOf(totalno))/(Integer.valueOf(totalyes)+Integer.valueOf(totalno));
-                textviewHayirOrani.setText(String.valueOf(hayiryudesi));
+                String gg = "%" + String.valueOf(hayiryudesi);
+                textviewHayirOrani.setText(gg);
             }
             if(Integer.valueOf(agree)==0 && Integer.valueOf(disagree)==0){
-                textviewuyumlulukyuzdesi.setText(String.valueOf(0));
+                textviewuyumlulukyuzdesi.setText(cc);
             }else if(Integer.valueOf(agree)==0){
-                textviewuyumlulukyuzdesi.setText(String.valueOf(0));
+                textviewuyumlulukyuzdesi.setText(cc);
             }else if(Integer.valueOf(disagree)==0){
-                textviewuyumlulukyuzdesi.setText(String.valueOf(100));
+                textviewuyumlulukyuzdesi.setText(dd);
             }else{
                 int uyumyuzdesi = (100*Integer.valueOf(agree))/(Integer.valueOf(agree)+Integer.valueOf(disagree));
-                textviewuyumlulukyuzdesi.setText(String.valueOf(uyumyuzdesi));
+                String ii = "%" + String.valueOf(uyumyuzdesi);
+                textviewuyumlulukyuzdesi.setText(ii);
             }
         }
     }
 
     private class ServerHazirlananSorulariCek extends AsyncTask<String,Void,String>{
         String userid,charset,param1,query;
-        String id,whatif,result,yes,no;
 
         public ServerHazirlananSorulariCek(String userid) {
             this.userid = userid;
@@ -366,8 +436,52 @@ public class Home extends Activity {
         }
 
         protected void onPostExecute(String s) {
-            hazırlananSoruAdapter = new HazırlananSoruAdapter(Home.this, R.layout.hazirlanansoru, hazirlananSoruArrayList);
-            hazirlanansorularlistview.setAdapter(hazırlananSoruAdapter);
+            if(hazirlananSoruArrayList.size()!=0) {
+                relLaySorunuzYok.setVisibility(View.INVISIBLE);
+                hazirlanansorularlistview.setVisibility(View.VISIBLE);
+                hazırlananSoruAdapter = new HazırlananSoruAdapter(Home.this, R.layout.hazirlanansoru, hazirlananSoruArrayList);
+                hazirlanansorularlistview.setAdapter(hazırlananSoruAdapter);
+            }
+        }
+    }
+
+    private class ServerNickKaydet extends AsyncTask<String,Void,String> {
+        String charset,query,kullaniciadi,id;
+
+        private ServerNickKaydet(String kullaniciadi , String id){
+            this.kullaniciadi = kullaniciadi;
+            this.id = id;
+            charset = "UTF-8";
+            String param1 = "userid";
+            String param2 = "nick";
+            try {
+                query = String.format("param1=%s&param2=%s" ,URLEncoder.encode(param1, charset) , URLEncoder.encode(param2,charset));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) new URL("http://185.22.187.17/diyelimki/nickdegistir.php?id="+id+"&nick="+kullaniciadi).openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connection.setDoOutput(true);
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 ( compatible ) ");
+            connection.setRequestProperty("Accept", "* /*");
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            try {
+                OutputStream output = new BufferedOutputStream(connection.getOutputStream());
+                output.write(query.getBytes(charset));
+                output.close();
+                InputStream is = connection.getInputStream();
+            } catch (IOException exception) {
+
+            }
+            return "palaba";
         }
     }
 }
