@@ -77,9 +77,9 @@
             android:layout_centerInParent="true"
             android:text="Fenerbaahsdsadasdasdasdasdddddddddddddddddd"
             android:textSize="20dp"
-            android:textAppearance="?android:attr/textAppearance"
             android:textColor="#000"
-            android:maxWidth="300dp"/>
+            android:maxWidth="300dp"
+            android:textAlignment="center"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -94,14 +94,14 @@
         <TextView
             fontPath="fonts/BalooThambi-Regular.ttf"
             android:id="@+id/textResult"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
             android:layout_centerInParent="true"
             android:textSize="20dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
-            android:maxWidth="300dp"/>
+            android:maxWidth="300dp"
+            android:textAlignment="center"/>
 
     </RelativeLayout>
     <RelativeLayout
@@ -236,13 +236,20 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:src="@drawable/clip_source" />
-
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right">
         <TextView
+            fontPath="fonts/BalooThambi-Regular.ttf"
             android:id="@+id/texviewkalansoru"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:layout_gravity="right"/>
-
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="10dp"/>
+        </RelativeLayout>
     </FrameLayout>
     </RelativeLayout>
