@@ -111,7 +111,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
     private ClipDrawable clipDrawable;
     public static final int MAX_LEVEL = 10000;
     public static final int LEVEL_DIFF = 100;
-    public static final int DELAY = 30 ;
+    public static final int DELAY = 10 ;
     private int currentlevel = 0;
     private int fromlevel = 0;
     private int tolevel = 0;

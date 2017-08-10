@@ -28,11 +28,13 @@
 
 
         <TextView
+            fontPath="fonts/BalooThambi-Regular.ttf"
             android:id="@+id/textviewcoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textColor="#33ee33"
+            android:textColor="#f9f0ca"
+            android:textSize="20dp"
             android:layout_toLeftOf="@+id/imageView"
             android:layout_toStartOf="@+id/imageView"
             android:text="TextView" />
@@ -61,7 +63,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="350dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@mipmap/diyelimki_balon"
         android:id="@+id/relativeLayout"
@@ -84,7 +86,7 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
-        android:layout_width="350dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bEvet"
         android:layout_below="@+id/relativeLayout"
@@ -117,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/LayEvetHayir"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ne_dersin">
@@ -155,14 +157,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/layIstatistik"
-            android:visibility="invisible"
+            android:visibility="visible"
         android:layout_below="@+id/ne_dersin"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         >
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@mipmap/istatistik_buttonu"
             android:id="@+id/bEvet2"
@@ -175,7 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="HAYIR!"
                 android:textColor="#fff"
                 android:textSize="20dp" />
@@ -186,10 +188,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="%34 Senle aynı fikirde!"
+                android:layout_marginTop="0dp"
+                android:text="%34 Sizin gibi düşünüyor!"
                 android:textColor="#fff"
-                android:textSize="12dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/textviewTersfikirde"
@@ -197,10 +199,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="%66 Senle farklı fikirde!"
+                android:layout_marginTop="0dp"
+                android:text="%66 farklı fikirde!"
                 android:textColor="#fff"
-                android:textSize="12dp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
             <ImageButton
@@ -212,7 +214,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/bEvet2"
                 android:layout_toEndOf="@+id/bEvet2"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="10dp"/>
 
         </RelativeLayout>
 
@@ -220,10 +222,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/laysoruhakki"
+        android:background="#f2f2f2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#f2f2f2">
+        android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -245,11 +247,13 @@
             android:id="@+id/texviewkalansoru"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="10/10"
+            android:textColor="#0baa4b"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:textSize="20dp"/>
         </RelativeLayout>
     </FrameLayout>
     </RelativeLayout>
