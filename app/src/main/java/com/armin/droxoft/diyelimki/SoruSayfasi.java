@@ -103,7 +103,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
     int flag;
     int soruSirasi ;
-    int soruHakki = 10;
+    int soruHakki = 15;
     ImageButton butonSorual , butonReklamizle;
     TextView textWhatif , textResult , textKalanSoru, textviewcoin , textviewCevap , textviewAynifikirde, textviewFarklifikirde,textcoin,textcoinn;
     List<String> rowidler , soruidler ,whatifler , resultlar , yesler , nolar , soranuseridler;
@@ -200,7 +200,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         textviewAynifikirde = (TextView) findViewById(R.id.textviewAynifikirde);
         textviewFarklifikirde= (TextView) findViewById(R.id.textviewTersfikirde);
         textKalanSoru = (TextView) findViewById(R.id.texviewkalansoru);
-        textKalanSoru.setText("10/10");
+        String bab = "15/15";
+        textKalanSoru.setText(bab);
         final Animation ButtonAnim_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_out);
         final Animation ButtonAnim_out_late = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim__out_late);
         final Animation ButtonAnim_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_in);
@@ -280,7 +281,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
     private void soruHakkiSistemi(){
         String durum = sharedPrefDurumAl();
-        String sonsoruhakki = String.valueOf(10);
+        String sonsoruhakki = String.valueOf(15);
         if(!durum.equals("defaultdurum")) {
             if(durum.length()==19){
                 sonsoruhakki= durum.substring(18, 19);
@@ -301,17 +302,17 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             String mevcutsaat = date.substring(12, 14);
             String mevcutdakika = date.substring(15, 17);
             if (!eskiyil.equals(mevcutyil) || !eskiay.equals(mevcutay)) {
-                soruHakki = 10;
+                soruHakki = 15;
             } else if (eskigun.equals(mevcutgun)) {
                 soruHakki = Integer.valueOf(sonsoruhakki);
             } else if (Integer.valueOf(mevcutgun) - Integer.valueOf(eskigun) > 1) {
-                soruHakki = 10;
+                soruHakki = 15;
             } else {
                 int mevcutdeger = (Integer.valueOf(mevcutsaat) * 60) + Integer.valueOf(mevcutdakika);
                 int gecmisdeger = (Integer.valueOf(eskisaat) * 60) + Integer.valueOf(eskidakika);
                 int fark = mevcutdeger - gecmisdeger;
                 if (fark > 1440) {
-                    soruHakki = 10;
+                    soruHakki = 15;
                 } else {
                     soruHakki = Integer.valueOf(sonsoruhakki);
                 }
@@ -401,9 +402,9 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
     }
 
     private void ilerlemeIslemi(String soruHakki){
-        String kalansoru = String.valueOf(soruHakki)+"/10";
+        String kalansoru = String.valueOf(soruHakki)+"/15";
         textKalanSoru.setText(kalansoru);
-        int temmplevel = ((10-Integer.parseInt(soruHakki))*MAX_LEVEL)/10;
+        int temmplevel = ((15-Integer.parseInt(soruHakki))*MAX_LEVEL)/15;
         Log.i("tago" , "ilerleme islemi calistirildi temmplevel " + temmplevel);
         if(tolevel==temmplevel || temmplevel > MAX_LEVEL){
             return;
@@ -421,7 +422,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             String nosayisi = nolar.get(soruSirasi-1);
             int sizingibidusunen = Integer.valueOf(yessayisi)*100/(Integer.valueOf(yessayisi) + Integer.valueOf(nosayisi));
             int hayirdiyen = 100 - sizingibidusunen;
-            textviewCevap.setText("EVET");
+            textviewCevap.setText("EVET!");
             String xx = "% " + String.valueOf(sizingibidusunen)+ " Sizin gibi düşünüyor";
             textviewAynifikirde.setText(xx);
             String yy ="% " + String.valueOf(hayirdiyen) + " hayır dedi" ;
@@ -431,7 +432,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             String nosayisi = nolar.get(soruSirasi-1);
             int sizingibidusunen = Integer.valueOf(nosayisi)*100/(Integer.valueOf(yessayisi) + Integer.valueOf(nosayisi));
             int evetdiyen = 100 - sizingibidusunen;
-            textviewCevap.setText("HAYIR");
+            textviewCevap.setText("HAYIR!");
             String xx = "% " + String.valueOf(sizingibidusunen)+ " Sizin gibi düşünüyor";
             textviewAynifikirde.setText(xx);
             String yy ="% " + String.valueOf(evetdiyen) + " evet dedi" ;
