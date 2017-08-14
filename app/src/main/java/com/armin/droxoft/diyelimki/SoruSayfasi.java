@@ -115,10 +115,16 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
     private int currentlevel = 0;
     private int fromlevel = 0;
     private int tolevel = 0;
+    private Handler refreshHandler = new Handler();
     private Handler yukariHandler = new Handler();
     private Runnable animateupimage = new Runnable() {
         public void run() {
             doUpAnimation(fromlevel,tolevel);
+        }
+    };
+    private Runnable animatedownimage = new Runnable() {
+        public void run() {
+            doDownAnimation(fromlevel,tolevel);
         }
     };
 
@@ -214,46 +220,111 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         evetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                evetButton.startAnimation(ButtonAnim_out);
-                hayirButton.startAnimation(ButtonAnim_out_late);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        LayEvetHayir.setVisibility(View.INVISIBLE);
-                        LayStat.setVisibility(View.VISIBLE);
-                        StatButton.startAnimation(ButtonAnim_in);
-                        ShareButton.startAnimation(ButtonAnim_in);
-
+                if (soruHakki < 1) {
+                    final Dialog dialog = new Dialog(SoruSayfasi.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.hakkinizbitti);
+                    dialog.setTitle("Başlık");
+                    textcoinn = (TextView) dialog.findViewById(R.id.textcoinn);
+                    textcoinn.setText(sharedPrefCoinAl());
+                    butonSorual = (ImageButton) dialog.findViewById(R.id.buttonReklam2);
+                    butonReklamizle = (ImageButton) dialog.findViewById(R.id.buttonReklam);
+                    if(Integer.valueOf(sharedPrefCoinAl())<100){
+                        butonReklamizle.setVisibility(View.VISIBLE);
+                        butonSorual.setVisibility(View.INVISIBLE);
                     }
-                }, 800);
+                    butonReklamizle.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (reklamObjesi.isLoaded()) {
+                                flag = 2;
+                                reklamObjesi.show();
+                            }
+                        }
+                    });
+                    butonSorual.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            soruAl();
+                            dialog.cancel();
+                        }
+                    });
+                    dialog.show();
+                }else{
+                    evetButton.startAnimation(ButtonAnim_out);
+                    hayirButton.startAnimation(ButtonAnim_out_late);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            LayEvetHayir.setVisibility(View.INVISIBLE);
+                            LayStat.setVisibility(View.VISIBLE);
+                            StatButton.startAnimation(ButtonAnim_in);
+                            ShareButton.startAnimation(ButtonAnim_in);
 
-                String soruid = soruidler.get(soruSirasi-1);
-                soruEvetCevaplandi(soruid);
-                istatistikleriCek("evet",soruSirasi);
+                        }
+                    }, 800);
+
+                    String soruid = soruidler.get(soruSirasi-1);
+                    soruEvetCevaplandi(soruid);
+                    istatistikleriCek("evet",soruSirasi);
+                }
             }
         });
 
         hayirButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hayirButton.startAnimation(ButtonAnim_out);
-                evetButton.startAnimation(ButtonAnim_out_late);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        LayEvetHayir.setVisibility(View.INVISIBLE);
-                        LayStat.setVisibility(View.VISIBLE);
-                        StatButton.startAnimation(ButtonAnim_in);
-                        ShareButton.startAnimation(ButtonAnim_in);
-
+                if (soruHakki < 1) {
+                    final Dialog dialog = new Dialog(SoruSayfasi.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.hakkinizbitti);
+                    dialog.setTitle("Başlık");
+                    textcoinn = (TextView) dialog.findViewById(R.id.textcoinn);
+                    textcoinn.setText(sharedPrefCoinAl());
+                    butonSorual = (ImageButton) dialog.findViewById(R.id.buttonReklam2);
+                    butonReklamizle = (ImageButton) dialog.findViewById(R.id.buttonReklam);
+                    if(Integer.valueOf(sharedPrefCoinAl())<100){
+                        butonReklamizle.setVisibility(View.VISIBLE);
+                        butonSorual.setVisibility(View.INVISIBLE);
                     }
-                }, 800);
+                    butonReklamizle.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (reklamObjesi.isLoaded()) {
+                                flag = 2;
+                                reklamObjesi.show();
+                            }
+                        }
+                    });
+                    butonSorual.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            soruAl();
+                            dialog.cancel();
+                        }
+                    });
+                    dialog.show();
+                }else{
+                    hayirButton.startAnimation(ButtonAnim_out);
+                    evetButton.startAnimation(ButtonAnim_out_late);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            LayEvetHayir.setVisibility(View.INVISIBLE);
+                            LayStat.setVisibility(View.VISIBLE);
+                            StatButton.startAnimation(ButtonAnim_in);
+                            ShareButton.startAnimation(ButtonAnim_in);
 
-                String soruid = soruidler.get(soruSirasi-1);
-                soruHayirCevaplandi(soruid);
-                istatistikleriCek("hayir",soruSirasi);
+                        }
+                    }, 800);
+
+                    String soruid = soruidler.get(soruSirasi-1);
+                    soruHayirCevaplandi(soruid);
+                    istatistikleriCek("hayir",soruSirasi);
+                }
+
             }
         });
 
@@ -378,8 +449,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             butonSorual.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // SORU ALMA ISLEMI
-                    Log.i("tago" , "soru almaya haziriz");
+                    soruAl();
+                    dialog.cancel();
                 }
             });
             dialog.show();
@@ -411,6 +482,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         }
         tolevel = (temmplevel<=MAX_LEVEL)?temmplevel:tolevel;
         if(tolevel>fromlevel){
+            refreshHandler.removeCallbacks(animatedownimage);
             fromlevel = tolevel;
             yukariHandler.post(animateupimage);
         }
@@ -440,6 +512,29 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         }
     }
 
+    private void soruAl(){
+        String  mevcutcoin = sharedPrefCoinAl();
+        String guncelcoin = String.valueOf(Integer.valueOf(mevcutcoin)-100);
+        sharedPrefCoinKaydet(guncelcoin);
+        textviewcoin.setText(guncelcoin);
+        soruHakki= 15;
+        String kalansoru = String.valueOf(soruHakki)+"/15";
+        textKalanSoru.setText(kalansoru);
+        bariDoldur();
+
+    }
+
+    private void bariDoldur(){
+        int temmplevel = 0;
+        if(tolevel==temmplevel || temmplevel > MAX_LEVEL){
+            return;
+        }
+        tolevel = (temmplevel<=MAX_LEVEL)?temmplevel:tolevel;
+        yukariHandler.removeCallbacks(animateupimage);
+        fromlevel = tolevel;
+        refreshHandler.post(animatedownimage);
+    }
+
     private void doUpAnimation(int fromlevel, int tolevel) {
         currentlevel = currentlevel + LEVEL_DIFF;
         clipDrawable.setLevel(currentlevel);
@@ -447,6 +542,17 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             yukariHandler.postDelayed(animateupimage,DELAY);
         }else {
             yukariHandler.removeCallbacks(animateupimage);
+            fromlevel = tolevel;
+        }
+    }
+
+    private void doDownAnimation(int fromlevel , int tolevel){
+        currentlevel = currentlevel - LEVEL_DIFF;
+        clipDrawable.setLevel(currentlevel);
+        if(currentlevel>=tolevel){
+            refreshHandler.postDelayed(animatedownimage,DELAY);
+        }else {
+            refreshHandler.removeCallbacks(animatedownimage);
             fromlevel = tolevel;
         }
     }
