@@ -497,7 +497,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             textviewCevap.setText("EVET!");
             String xx = "% " + String.valueOf(sizingibidusunen)+ " Sizin gibi düşünüyor";
             textviewAynifikirde.setText(xx);
-            String yy ="% " + String.valueOf(hayirdiyen) + " farklı fikirde" ;
+            String yy ="% " + String.valueOf(hayirdiyen) + " Farklı fikirde" ;
             textviewFarklifikirde.setText(yy);
         }else{
             String yessayisi = yesler.get(soruSirasi-1);
@@ -507,7 +507,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             textviewCevap.setText("HAYIR!");
             String xx = "% " + String.valueOf(sizingibidusunen)+ " Sizin gibi düşünüyor";
             textviewAynifikirde.setText(xx);
-            String yy ="% " + String.valueOf(evetdiyen) + " farklı fikirde" ;
+            String yy ="% " + String.valueOf(evetdiyen) + " Farklı fikirde" ;
             textviewFarklifikirde.setText(yy);
         }
     }
