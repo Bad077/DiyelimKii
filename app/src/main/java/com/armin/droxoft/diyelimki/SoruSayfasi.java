@@ -137,6 +137,12 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         tanimlar();
         soruHakkiSistemi();
         sonrakisoru();
+        int temmplevel = ((15-Integer.valueOf(soruHakki))*MAX_LEVEL)/15;
+        clipDrawable.setLevel(temmplevel);
+        fromlevel = temmplevel;
+        currentlevel = temmplevel;
+        String asa = String.valueOf(soruHakki)+"/15";
+        textKalanSoru.setText(asa);
     }
 
     private void reklamKurulumu(){

@@ -135,6 +135,18 @@ public class Home extends Activity {
             public void onClick(View v) {
                 if (!editTextWhatIf.getText().toString().equals("") && !editTextBut.getText().toString().equals("")&&
                         editTextWhatIf.getText().toString().length()>4 && editTextBut.getText().toString().length()>4){
+                    final Dialog dialog = new Dialog(Home.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.dialogsorugonder);
+                    dialog.setTitle("Başlık");
+                    Button butonanladim = (Button) dialog.findViewById(R.id.buttonanladim);
+                    butonanladim.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.cancel();
+                        }
+                    });
+                    dialog.show();
                     ServerSoruyuGonder sSG = new ServerSoruyuGonder(editTextWhatIf.getText().toString(), editTextBut.getText().toString(), userid);
                     sSG.execute();
                 }if(editTextWhatIf.getText().toString().length()<5){
