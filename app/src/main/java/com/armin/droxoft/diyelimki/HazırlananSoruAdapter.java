@@ -47,13 +47,26 @@ public class HazırlananSoruAdapter extends ArrayAdapter{
         } else {
             hazirlananSoruHolder = (HazirlananSoruHolder) convertView.getTag();
         }
-        hazirlananSoruHolder.id.setText(hazirlanansorulararraylist.get(position).getId());
+        String idhash = "#" + hazirlanansorulararraylist.get(position).getId();
+        hazirlananSoruHolder.id.setText(idhash);
         Log.i("tago" ,"get viewın içinden " +  hazirlanansorulararraylist.get(position).getWhatif());
         hazirlananSoruHolder.whatif.setText(hazirlanansorulararraylist.get(position).getWhatif());
         hazirlananSoruHolder.result.setText(hazirlanansorulararraylist.get(position).getResult());
-        hazirlananSoruHolder.evett.setText(hazirlanansorulararraylist.get(position).getEvetsayisi());
-        hazirlananSoruHolder.hayirr.setText(hazirlanansorulararraylist.get(position).getHayirsayisi());
-        hazirlananSoruHolder.toplamm.setText(hazirlanansorulararraylist.get(position).getToplamcevap());
+        if(Integer.valueOf(hazirlanansorulararraylist.get(position).getToplamcevap()) == 0){
+            hazirlananSoruHolder.evett.setText("0");
+            hazirlananSoruHolder.hayirr.setText("0");
+        }else{
+            int evetoran = 100 * Integer.valueOf(hazirlanansorulararraylist.get(position).getEvetsayisi())/
+                    Integer.valueOf(hazirlanansorulararraylist.get(position).getToplamcevap());
+            String evetorani = "Evet: %"+ String.valueOf(evetoran);
+            hazirlananSoruHolder.evett.setText(evetorani);
+            int hayiroran = 100 * Integer.valueOf(hazirlanansorulararraylist.get(position).getHayirsayisi())/
+                    Integer.valueOf(hazirlanansorulararraylist.get(position).getToplamcevap());
+            String hayirorani = "Hayır: %"+ String.valueOf(hayiroran);
+            hazirlananSoruHolder.hayirr.setText(hayirorani);
+        }
+        String toplam = "Toplam: " + hazirlanansorulararraylist.get(position).getToplamcevap();
+        hazirlananSoruHolder.toplamm.setText(toplam);
         return convertView;
     }
 

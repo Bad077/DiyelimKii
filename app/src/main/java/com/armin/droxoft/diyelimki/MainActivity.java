@@ -121,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    textviewkackaldi.setText(String.valueOf(15-count));
+                    int uzunluk = s.length();
+                    textviewkackaldi.setText(String.valueOf(15-uzunluk));
                 }
 
                 public void afterTextChanged(Editable s) {
