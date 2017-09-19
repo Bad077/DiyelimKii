@@ -358,44 +358,29 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
     private void soruHakkiSistemi(){
         String durum = sharedPrefDurumAl();
-        String sonsoruhakki = String.valueOf(15);
         if(!durum.equals("defaultdurum")) {
-            if(durum.length()==19){
-                sonsoruhakki= durum.substring(18, 19);
-            }else if(durum.length()==20){
-                sonsoruhakki = durum.substring(18,20);
-            }
-            DateFormat df = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
+            String eskigun = durum.substring(0,2);
+            String eskiay = durum.substring(3,5);
+            String eskiyil = durum.substring(6,10);
+            String sonsoruhakki = durum.substring(11,13);
+
+            DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
             String date = df.format(Calendar.getInstance().getTime());
+            String yenigun = date.substring(0,2);
+            String yeniay = date.substring(3,5);
+            String yeniyil = date.substring(6,10);
 
-            String eskigun = durum.substring(0, 2);
-            String eskiay = durum.substring(3, 5);
-            String eskiyil = durum.substring(6, 10);
-            String eskisaat = durum.substring(12, 14);
-            String eskidakika = durum.substring(15, 17);
-            String mevcutgun = date.substring(0, 2);
-            String mevcutay = date.substring(3, 5);
-            String mevcutyil = date.substring(6, 10);
-            String mevcutsaat = date.substring(12, 14);
-            String mevcutdakika = date.substring(15, 17);
-            if (!eskiyil.equals(mevcutyil) || !eskiay.equals(mevcutay)) {
+            if(Integer.valueOf(yeniyil)>Integer.valueOf(eskiyil)){
                 soruHakki = 15;
-            } else if (eskigun.equals(mevcutgun)) {
+            }else if(Integer.valueOf(yeniay)>Integer.valueOf(eskiay)){
+                soruHakki = 15;
+            }else if(Integer.valueOf(yenigun)>Integer.valueOf(eskigun)){
+                soruHakki = 15;
+            }else{
                 soruHakki = Integer.valueOf(sonsoruhakki);
-            } else if (Integer.valueOf(mevcutgun) - Integer.valueOf(eskigun) > 1) {
-                soruHakki = 15;
-            } else {
-                int mevcutdeger = (Integer.valueOf(mevcutsaat) * 60) + Integer.valueOf(mevcutdakika);
-                int gecmisdeger = (Integer.valueOf(eskisaat) * 60) + Integer.valueOf(eskidakika);
-                int fark = mevcutdeger - gecmisdeger;
-                if (fark > 1440) {
-                    soruHakki = 15;
-                } else {
-                    soruHakki = Integer.valueOf(sonsoruhakki);
-                }
-
             }
-
+        }else{
+            soruHakki = 15;
         }
     }
 
@@ -471,7 +456,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             textResult.setText(result);
             sharedPrefKullaniciKacinciSorudaKaydet(soruid);
             soruSirasi++;
-            DateFormat df = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
+            DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
             String date = df.format(Calendar.getInstance().getTime());
             String durum = date + " " + String.valueOf(soruHakki);
             sharedPrefDurumKaydet(durum);
