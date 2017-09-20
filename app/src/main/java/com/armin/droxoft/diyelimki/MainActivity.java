@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void kullanicikaydi(String kullaniciadi) {
-            sharedPrefCoinKaydet("50");
+            sharedPrefCoinKaydet("100");
             ServerKullaniciKaydet sKK = new ServerKullaniciKaydet(kullaniciadi);
             sKK.execute();
     }
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             try {
-                connection = (HttpURLConnection) new URL("http://185.22.187.17/diyelimki/add_user.php?username="+kullaniciadi+"&coin=200").openConnection();
+                connection = (HttpURLConnection) new URL("http://185.22.187.17/diyelimki/add_user.php?username="+kullaniciadi+"&coin=100").openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
