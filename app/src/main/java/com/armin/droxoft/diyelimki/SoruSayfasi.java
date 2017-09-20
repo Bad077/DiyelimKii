@@ -362,7 +362,13 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             String eskigun = durum.substring(0,2);
             String eskiay = durum.substring(3,5);
             String eskiyil = durum.substring(6,10);
-            String sonsoruhakki = durum.substring(11,13);
+            String sonsoruhakki;
+            if(durum.length()==12){
+                sonsoruhakki = durum.substring(11,12);
+            }else{
+                sonsoruhakki = durum.substring(11,13);
+            }
+
 
             DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
             String date = df.format(Calendar.getInstance().getTime());
