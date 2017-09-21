@@ -63,7 +63,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:background="@mipmap/diyelimki_balon"
         android:id="@+id/relativeLayout"
@@ -86,7 +86,7 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:background="@mipmap/ama_balon"
         android:layout_below="@+id/relativeLayout"
@@ -226,17 +226,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <RelativeLayout
+        <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:background="@drawable/full_dolu" />
 
-        <RelativeLayout
+        <ImageView
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:background="@drawable/clip_source" />
+            android:src="@drawable/clip_source" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
