@@ -1,10 +1,8 @@
 package com.armin.droxoft.diyelimki;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ClipDrawable;
@@ -16,7 +14,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,23 +22,15 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -173,6 +162,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         clipDrawable = (ClipDrawable) image1.getDrawable();
         clipDrawable.setLevel(0);
         ImageButton coinbutton = (ImageButton) findViewById(R.id.coinButton);
+
         coinbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,10 +209,12 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         final Animation ButtonAnim_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_in);
         final RelativeLayout LayEvetHayir = (RelativeLayout) findViewById(R.id.LayEvetHayir);
         final RelativeLayout LayStat = (RelativeLayout) findViewById(R.id.layIstatistik);
+        final RelativeLayout diyelimkiRel = (RelativeLayout)  findViewById(R.id.relativeLayout);
+        final RelativeLayout amaRel = (RelativeLayout)  findViewById(R.id.relativeLayout2);
         final ImageButton evetButton = (ImageButton) findViewById(R.id.bEvet);
         final ImageButton hayirButton = (ImageButton) findViewById(R.id.bHayir);
         final LinearLayout StatButton = (LinearLayout) findViewById(R.id.bEvet2);
-        final ImageButton ShareButton = (ImageButton) findViewById(R.id.bHayir2);
+        final ImageButton ShareButton = (ImageButton) findViewById(R.id.gecbutton);
         evetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -339,19 +331,24 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             public void onClick(View v) {
                 ShareButton.startAnimation(ButtonAnim_out);
                 StatButton.startAnimation(ButtonAnim_out_late);
+                amaRel.startAnimation(ButtonAnim_out);
+                diyelimkiRel.startAnimation(ButtonAnim_out);
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        sonrakisoru();
                         LayStat.setVisibility(View.INVISIBLE);
                         LayEvetHayir.setVisibility(View.VISIBLE);
                         evetButton.startAnimation(ButtonAnim_in);
                         hayirButton.startAnimation(ButtonAnim_in);
+                        amaRel.startAnimation(ButtonAnim_in);
+                        diyelimkiRel.startAnimation(ButtonAnim_in);
 
                     }
                 }, 800);
 
-                sonrakisoru();
+
             }
         });
     }

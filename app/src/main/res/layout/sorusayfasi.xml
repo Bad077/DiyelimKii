@@ -88,9 +88,10 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@mipmap/ama_balon"
         android:layout_below="@+id/relativeLayout"
-        android:layout_centerHorizontal="true"
-        android:background="@mipmap/ama_balon">
+        android:layout_alignLeft="@+id/relativeLayout"
+        android:layout_alignStart="@+id/relativeLayout">
 
         <TextView
             fontPath="fonts/BalooThambi-Regular.ttf"
@@ -158,8 +159,7 @@
             android:id="@+id/layIstatistik"
             android:visibility="invisible"
             android:layout_below="@+id/ne_dersin"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         >
         <LinearLayout
             android:orientation="vertical"
@@ -207,7 +207,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/bHayir2"
+                android:id="@+id/gecbutton"
                 android:src="@mipmap/gec_button"
                 android:background="#00000000"
                 android:layout_alignParentTop="true"
@@ -226,17 +226,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <ImageView
+        <RelativeLayout
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:src="@drawable/full_dolu" />
+            android:background="@drawable/full_dolu" />
 
-        <ImageView
+        <RelativeLayout
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:src="@drawable/clip_source" />
+            android:background="@drawable/clip_source" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
