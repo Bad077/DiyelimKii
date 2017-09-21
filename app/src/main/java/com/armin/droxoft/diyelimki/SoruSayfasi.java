@@ -207,6 +207,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
         final Animation ButtonAnim_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_out);
         final Animation ButtonAnim_out_late = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim__out_late);
         final Animation ButtonAnim_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim_in);
+        final Animation anim_in_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_in_out);
         final RelativeLayout LayEvetHayir = (RelativeLayout) findViewById(R.id.LayEvetHayir);
         final RelativeLayout LayStat = (RelativeLayout) findViewById(R.id.layIstatistik);
         final RelativeLayout diyelimkiRel = (RelativeLayout)  findViewById(R.id.relativeLayout);
@@ -331,8 +332,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
             public void onClick(View v) {
                 ShareButton.startAnimation(ButtonAnim_out);
                 StatButton.startAnimation(ButtonAnim_out_late);
-                amaRel.startAnimation(ButtonAnim_out);
-                diyelimkiRel.startAnimation(ButtonAnim_out);
+                amaRel.startAnimation(anim_in_out);
+                diyelimkiRel.startAnimation(anim_in_out);
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -343,8 +344,8 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
                         LayEvetHayir.setVisibility(View.VISIBLE);
                         evetButton.startAnimation(ButtonAnim_in);
                         hayirButton.startAnimation(ButtonAnim_in);
-                        amaRel.startAnimation(ButtonAnim_in);
-                        diyelimkiRel.startAnimation(ButtonAnim_in);
+//                        amaRel.startAnimation(ButtonAnim_in);
+//                        diyelimkiRel.startAnimation(ButtonAnim_in);
 
                     }
                 }, 800);
