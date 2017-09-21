@@ -338,6 +338,7 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
                     @Override
                     public void run() {
                         sonrakisoru();
+                        Log.i("tago" , "geldigeldi");
                         LayStat.setVisibility(View.INVISIBLE);
                         LayEvetHayir.setVisibility(View.VISIBLE);
                         evetButton.startAnimation(ButtonAnim_in);
@@ -347,7 +348,6 @@ public class SoruSayfasi extends Activity implements RewardedVideoAdListener {
 
                     }
                 }, 800);
-
 
             }
         });

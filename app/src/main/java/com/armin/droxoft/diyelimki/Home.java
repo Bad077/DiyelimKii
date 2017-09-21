@@ -218,7 +218,8 @@ public class Home extends Activity {
                     }
 
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        textviewkackaldii.setText(String.valueOf(15-count));
+                        int uzunluk = s.length();
+                        textviewkackaldii.setText(String.valueOf(15-uzunluk));
                     }
 
                     public void afterTextChanged(Editable s) {

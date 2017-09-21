@@ -82,7 +82,8 @@ public class NickDegistir extends Activity {
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tv1.setText(String.valueOf(15-count));
+                int uzunluk = s.length();
+                tv1.setText(String.valueOf(15-uzunluk));
             }
 
             public void afterTextChanged(Editable s) {
